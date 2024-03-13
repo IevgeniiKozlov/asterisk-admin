@@ -1,0 +1,47 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model cdr {
+  id          Int      @id @default(autoincrement())
+  calldate    DateTime @default(dbgenerated("'0000-00-00 00:00:00'")) @db.DateTime(0)
+  clid        String   @default("") @db.VarChar(80)
+  src         String   @default("") @db.VarChar(80)
+  dst         String   @default("") @db.VarChar(80)
+  realdst     String   @default("") @db.VarChar(80)
+  dcontext    String   @default("") @db.VarChar(80)
+  channel     String   @default("") @db.VarChar(80)
+  dstchannel  String   @default("") @db.VarChar(80)
+  lastapp     String   @default("") @db.VarChar(80)
+  lastdata    String   @default("") @db.VarChar(80)
+  start       DateTime @default(dbgenerated("'0000-00-00 00:00:00'")) @db.DateTime(0)
+  answer      DateTime @default(dbgenerated("'0000-00-00 00:00:00'")) @db.DateTime(0)
+  end         DateTime @default(dbgenerated("'0000-00-00 00:00:00'")) @db.DateTime(0)
+  duration    Int      @default(0)
+  billsec     Int      @default(0)
+  disposition String   @default("") @db.VarChar(45)
+  amaflags    Int      @default(0)
+  remoteip    String   @default("") @db.VarChar(60)
+  accountcode String   @default("") @db.VarChar(20)
+  peeraccount String   @default("") @db.VarChar(20)
+  uniqueid    String   @default("") @db.VarChar(32)
+  userfield   String   @default("") @db.VarChar(255)
+  did         String   @default("") @db.VarChar(50)
+  linkedid    String   @default("") @db.VarChar(32)
+  sequence    Int      @default(0)
+  filename    String?  @default("none") @db.VarChar(255)
+
+  @@index([accountcode], map: "accountcode")
+  @@index([calldate], map: "calldate")
+  @@index([clid], map: "clid")
+  @@index([dcontext], map: "dcontext")
+  @@index([did], map: "did")
+  @@index([dst], map: "dst")
+  @@index([src], map: "src")
+  @@index([uniqueid], map: "uniqueid")
+}
