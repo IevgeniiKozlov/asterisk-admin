@@ -1,4 +1,4 @@
-import MainTable from './(components)/MainTable'
+import Dashboard from './(components)/Dashboard'
 
 export const dynamic = 'force-dynamic'
 
@@ -7,7 +7,7 @@ export default async function Home() {
 
   return (
     <main className='relative flex-auto'>
-      <MainTable />
+      <Dashboard />
     </main>
   )
 }
