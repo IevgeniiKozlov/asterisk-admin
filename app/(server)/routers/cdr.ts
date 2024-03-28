@@ -1,5 +1,6 @@
 import { z } from 'zod'
-import { prisma } from '../prisma'
+import { outputCdrSchema } from '../schemas/cdr.schema'
+import { findAll } from '../services/cdr.service'
 import { publicProcedure, router } from '../trpc'
 
 /**
@@ -16,11 +17,13 @@ import { publicProcedure, router } from '../trpc'
 // } satisfies Prisma.CdrSelect
 
 export const cdrRouter = router({
-  getList: publicProcedure.input(z.void()).query(async ({ input }) => {
-    const items = await prisma.cdr.findMany({})
-    return items
-  }),
-  getByFilters: publicProcedure
-    .input(z.object({}))
-    .query(async ({ input }) => {}),
+  getList: publicProcedure
+    .input(z.void())
+    .output(z.array(outputCdrSchema))
+    .query(async () => {
+      return await findAll()
+    }),
+  // getByFilters: publicProcedure
+  //   .input(z.object({}))
+  //   .query(async ({ input }) => {}),
 })
