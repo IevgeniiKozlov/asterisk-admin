@@ -1,7 +1,7 @@
+import { procedure, router } from '@/app/(utils)/trpc/trpc-server'
 import { z } from 'zod'
 import { outputCdrSchema } from '../schemas/cdr.schema'
 import { findAll } from '../services/cdr.service'
-import { publicProcedure, router } from '../trpc'
 
 /**
  * Default selector for Post.
@@ -17,13 +17,11 @@ import { publicProcedure, router } from '../trpc'
 // } satisfies Prisma.CdrSelect
 
 export const cdrRouter = router({
-  getList: publicProcedure
+  getListCdr: procedure
     .input(z.void())
     .output(z.array(outputCdrSchema))
     .query(async () => {
+      console.log('test')
       return await findAll()
     }),
-  // getByFilters: publicProcedure
-  //   .input(z.object({}))
-  //   .query(async ({ input }) => {}),
 })

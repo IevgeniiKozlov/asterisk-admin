@@ -12,7 +12,7 @@ export const signUpAdminSchema = loginAdminSchema.extend({
 })
 
 export const outputAuthSchema = z.object({
-  id: z.string().min(1),
+  id: z.number(),
   login: z.string().email(),
 })
 

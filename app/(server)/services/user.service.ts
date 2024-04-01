@@ -1,6 +1,6 @@
+import prisma from '@/prisma/prisma-client'
 import { TRPCError } from '@trpc/server'
 import { compare, hash } from 'bcryptjs'
-import { prisma } from '../prisma'
 import { ILoginUser } from '../schemas/auth.schema'
 import { ICreateUser } from '../schemas/user.schema'
 

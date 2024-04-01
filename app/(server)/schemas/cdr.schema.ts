@@ -2,7 +2,7 @@ import { z } from 'zod'
 
 export const outputCdrSchema = z.object({
   id: z.number(),
-  calldate: z.string(),
+  calldate: z.date(),
   clid: z.string(),
   src: z.string(),
   dst: z.string(),
@@ -12,9 +12,9 @@ export const outputCdrSchema = z.object({
   dstchannel: z.string(),
   lastapp: z.string(),
   lastdata: z.string(),
-  start: z.string(),
-  answer: z.string(),
-  end: z.string(),
+  start: z.date(),
+  answer: z.date(),
+  end: z.date(),
   duration: z.number(),
   billsec: z.number(),
   disposition: z.string(),
@@ -27,7 +27,7 @@ export const outputCdrSchema = z.object({
   did: z.string(),
   linkedid: z.string(),
   sequence: z.number(),
-  filename: z.string(),
+  filename: z.string().nullable(),
 })
 
 export type ICdr = z.TypeOf<typeof outputCdrSchema>
