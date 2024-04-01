@@ -1,5 +1,6 @@
 import { Metadata } from 'next'
 import { Inter } from 'next/font/google'
+import { Toaster } from 'react-hot-toast'
 import './globals.css'
 import { Providers } from './providers'
 
@@ -21,6 +22,7 @@ export default async function RootLayout({
   return (
     <html lang='en' className='light'>
       <body className={inter.className}>
+        <Toaster />
         <Providers>{children}</Providers>
       </body>
     </html>
