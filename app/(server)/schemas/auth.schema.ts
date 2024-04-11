@@ -25,7 +25,7 @@ export const outputAuthSchema = z.object({
   name: z.string().min(1),
   login: z.string().min(1),
   password: z.string().min(1),
-  operators: z.array(z.string()),
+  operators: z.string().nullable(),
   role: z.string().min(1),
 })
 
