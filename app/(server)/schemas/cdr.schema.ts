@@ -1,5 +1,10 @@
 import { z } from 'zod'
 
+export const paginationCdrSchema = z.object({
+  page: z.number().optional(),
+  limit: z.number().optional(),
+})
+
 export const outputCdrSchema = z.object({
   id: z.number(),
   calldate: z.date(),
@@ -30,4 +35,15 @@ export const outputCdrSchema = z.object({
   filename: z.string().nullable(),
 })
 
+export const outputCdrWithPaginationSchema = z.object({
+  itemsCount: z.number(),
+  totalItems: z.number(),
+  totalPages: z.number(),
+  rangeStart: z.number(),
+  rangeEnd: z.number(),
+  items: z.array(outputCdrSchema),
+})
+
 export type ICdr = z.TypeOf<typeof outputCdrSchema>
+export type IPaginationCdr = z.TypeOf<typeof paginationCdrSchema>
+export type ICdrWithPagination = z.TypeOf<typeof outputCdrWithPaginationSchema>

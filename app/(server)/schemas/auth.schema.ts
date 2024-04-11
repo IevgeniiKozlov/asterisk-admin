@@ -20,16 +20,12 @@ export const loginUserSchema = z.object({
   password: z.string().min(4).max(12),
 })
 
-export const signUpUserSchema = loginUserSchema.extend({
-  name: z.string().min(1),
-  role: z.string().min(1),
-})
-
 export const outputAuthSchema = z.object({
   id: z.number(),
   name: z.string().min(1),
   login: z.string().min(1),
   password: z.string().min(1),
+  operators: z.array(z.string()),
   role: z.string().min(1),
 })
 
