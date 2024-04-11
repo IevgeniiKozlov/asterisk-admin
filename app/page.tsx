@@ -1,13 +1,15 @@
-import Dashboard from './(components)/Dashboard'
-
+import MainTable from './(components)/MainTable'
+import { serverClient } from './(utils)/trpc/serverClient'
 export const dynamic = 'force-dynamic'
 
-export default async function Home() {
-  // const CallsDataInit = await ...
-
+const App = async () => {
+  const callsData = await serverClient.cdr.getList()
+  // console.log(callsData)
   return (
     <main className='relative flex-auto'>
-      <Dashboard />
+      <MainTable callsData={callsData} />
     </main>
   )
 }
+
+export default App
