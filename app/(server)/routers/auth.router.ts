@@ -8,8 +8,8 @@ import {
 } from '../schemas/auth.schema'
 import {
   isExistAdmin,
-  loginAdmin,
-  loginUser,
+  signInAdmin,
+  signInUser,
   signUpAdmin,
 } from '../services/auth.service'
 
@@ -18,14 +18,13 @@ export const authRouter = router({
     .input(loginAdminSchema)
     .output(outputAuthSchema)
     .mutation(async ({ input }) => {
-      console.log('test')
-      return await loginAdmin({ ...input })
+      return await signInAdmin({ ...input })
     }),
   loginUser: procedure
     .input(loginUserSchema)
     .output(outputAuthSchema)
     .mutation(async ({ input }) => {
-      return await loginUser({ ...input })
+      return await signInUser({ ...input })
     }),
   registerAdmin: procedure
     .input(signUpAdminSchema)

@@ -1,7 +1,12 @@
 import { authRouter } from '@/app/(server)/routers/auth.router'
 import { cdrRouter } from '@/app/(server)/routers/cdr.router'
 import { userRouter } from '@/app/(server)/routers/user.router'
-import { mergeRouters, procedure, router } from '@/app/(utils)/trpc/trpc-server'
+import {
+  createCallerFactory,
+  mergeRouters,
+  procedure,
+  router,
+} from '@/app/(utils)/trpc/trpc-server'
 import { createServerSideHelpers } from '@trpc/react-query/server'
 import SuperJSON from 'superjson'
 
@@ -27,5 +32,7 @@ export const createSSRHelper = () =>
     transformer: SuperJSON,
     ctx: () => {},
   })
+
+export const createCaller = createCallerFactory(authRouter)
 
 export type AppRouter = typeof appRouter

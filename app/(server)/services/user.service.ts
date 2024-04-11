@@ -3,17 +3,25 @@ import { TRPCError } from '@trpc/server'
 import { compare, hash } from 'bcryptjs'
 import { ILoginUser } from '../schemas/auth.schema'
 import { ICreateUser } from '../schemas/user.schema'
+import { IOutputUser } from './../schemas/user.schema'
 
-export const validateAdmin = async (data: ILoginUser) => {
-  const user = await prisma.user.findUnique({
+export const findAllUsers = async (): Promise<IOutputUser[]> => {
+  return await prisma.user.findMany({
+    where: { role: 'user' },
+  })
+}
+
+export const validateAdmin = async (data: ILoginUser): Promise<IOutputUser> => {
+  const user: IOutputUser | null = await prisma.user.findUnique({
     where: {
       login: data.login,
+      role: 'admin',
     },
   })
 
   if (!user) {
     throw new TRPCError({
-      message: `Admin with email ${data.login} was not found`,
+      message: `Админ с электронной почтой ${data.login} не найден`,
       code: 'NOT_FOUND',
     })
   }
@@ -25,16 +33,17 @@ export const validateAdmin = async (data: ILoginUser) => {
   throw new TRPCError({ code: 'UNAUTHORIZED' })
 }
 
-export const validateUser = async (data: ILoginUser) => {
-  const user = await prisma.user.findUnique({
+export const validateUser = async (data: ILoginUser): Promise<IOutputUser> => {
+  const user: IOutputUser | null = await prisma.user.findUnique({
     where: {
       login: data.login,
+      role: 'user',
     },
   })
 
   if (!user) {
     throw new TRPCError({
-      message: `User with login ${data.login} was not found`,
+      message: `Пользователь с логином ${data.login} не найден`,
       code: 'NOT_FOUND',
     })
   }
@@ -46,8 +55,8 @@ export const validateUser = async (data: ILoginUser) => {
   throw new TRPCError({ code: 'UNAUTHORIZED' })
 }
 
-export const createUser = async (data: ICreateUser) => {
-  const user = await prisma.user.findUnique({
+export const createUser = async (data: ICreateUser): Promise<IOutputUser> => {
+  const user: IOutputUser | null = await prisma.user.findUnique({
     where: {
       login: data.login,
     },
@@ -55,7 +64,7 @@ export const createUser = async (data: ICreateUser) => {
 
   if (user) {
     throw new TRPCError({
-      message: `${data.role === 'admin' ? 'Admin with email' : 'User with login'} "${data.login}" already exists`,
+      message: `${data.role === 'admin' ? 'Админ с электронной почтой' : 'Пользователь с логином'} "${data.login}" уже существует`,
       code: 'FORBIDDEN',
     })
   }

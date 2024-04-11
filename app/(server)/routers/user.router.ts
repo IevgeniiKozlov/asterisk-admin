@@ -1,13 +1,19 @@
 import { procedure, router } from '@/app/(utils)/trpc/trpc-server'
+import { z } from 'zod'
 import { createUserSchema, outputUserSchema } from '../schemas/user.schema'
-import { createUser } from '../services/user.service'
+import { createUser, findAllUsers } from '../services/user.service'
 
 export const userRouter = router({
-  createUser: procedure
+  getListUsers: procedure
+    .input(z.void())
+    .output(z.array(outputUserSchema))
+    .query(async () => {
+      return await findAllUsers()
+    }),
+  registerUser: procedure
     .input(createUserSchema)
     .output(outputUserSchema)
     .mutation(async ({ input }) => {
-      console.log('test', input)
       return await createUser({ ...input })
     }),
 })

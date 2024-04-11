@@ -7,4 +7,5 @@ const trpc = initTRPC.create({
 
 export const router = trpc.router
 export const procedure = trpc.procedure
+export const createCallerFactory = trpc.createCallerFactory
 export const mergeRouters = trpc.mergeRouters
