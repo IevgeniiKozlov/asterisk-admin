@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "db:generate": "npx prisma generate",
-    "db:pull": "npx prisma db pull",
+    "db:push": "npx prisma db push",
+    "db:studio": "npx prisma studio",
     "dev": "cross-env NODE_OPTIONS='--inspect' next dev -p $(grep APP_PORT .env | cut -d '=' -f2)",
     "start": "next start -p $(grep APP_PORT .env | cut -d '=' -f2)",
     "build": "next build",
@@ -12,29 +13,32 @@
     "prettier": "prettier --write .",
     "prepare": "husky install"
   },
-  "prisma": {
-    "seed": "ts-node prisma/seed.ts"
-  },
   "dependencies": {
+    "@auth/prisma-adapter": "^1.5.2",
     "@nextui-org/react": "^2.2.9",
     "@nextui-org/system": "^2.0.15",
     "@nextui-org/theme": "^2.1.17",
     "@prisma/client": "^5.11.0",
-    "@tanstack/react-query": "^4.36.1",
+    "@tanstack/react-query": "^5.28.8",
     "@trpc/client": "^10.45.2",
     "@trpc/next": "^10.45.2",
     "@trpc/react-query": "^10.45.2",
     "@trpc/server": "^10.45.2",
     "framer-motion": "^10.16.16",
-    "next": "14.0.4",
+    "next": "14.0.2",
+    "next-auth": "5.0.0-beta.5",
     "react": "^18",
     "react-dom": "^18",
+    "react-hot-toast": "^2.4.1",
+    "react-icons": "^5.0.1",
     "superjson": "^2.2.1",
+    "yup": "^1.4.0",
     "zod": "^3.22.4"
   },
   "devDependencies": {
     "@commitlint/cli": "^18.4.3",
     "@commitlint/config-conventional": "^18.4.3",
+    "@types/bcryptjs": "^2.4.6",
     "@types/node": "^20.10.4",
     "@types/react": "^18",
     "@types/react-dom": "^18",

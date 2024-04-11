@@ -70,8 +70,8 @@ const statusColorMap: Record<string, ChipProps['color']> = {
   failed: 'secondary',
 }
 
-const MainTable = ({ callsData }: { callsData: ICallData[] }) => {
-  const cdr = trpc.cdr.getList.useQuery(undefined, { initialData: callsData })
+const MainTable = () => {
+  const cdr = trpc.cdr.getList.useQuery(undefined)
 
   const [filterValue, setFilterValue] = useState('')
   const [page, setPage] = useState(1)
