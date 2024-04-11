@@ -1,6 +1,6 @@
 'use client'
 
-import { trpc } from '@/(utils)/trpc/client'
+import { trpc } from '@/app/(utils)/trpc/trpc'
 import {
   Button,
   Chip,
@@ -21,7 +21,7 @@ import {
   TableRow,
 } from '@nextui-org/react'
 
-import { normalizeString } from '@/(helpers)/normalizeString'
+import { normalizeString } from '@/app/(helpers)/normalizeString'
 import { useCallback, useMemo, useState } from 'react'
 import { formatDate } from '../(helpers)/formatDate'
 import { timeCall } from '../(helpers)/formatTimeCall'
@@ -71,7 +71,7 @@ const statusColorMap: Record<string, ChipProps['color']> = {
 }
 
 const MainTable = () => {
-  const cdr = trpc.cdr.getList.useQuery(undefined)
+  const cdr = trpc.getListCdr.useQuery(undefined)
 
   const [filterValue, setFilterValue] = useState('')
   const [page, setPage] = useState(1)
