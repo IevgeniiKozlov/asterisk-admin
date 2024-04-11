@@ -1,7 +1,11 @@
 import { procedure, router } from '@/app/(utils)/trpc/trpc-server'
 import { z } from 'zod'
-import { outputCdrSchema } from '../schemas/cdr.schema'
-import { findAll } from '../services/cdr.service'
+import {
+  outputCdrSchema,
+  outputCdrWithPaginationSchema,
+  paginationCdrSchema,
+} from '../schemas/cdr.schema'
+import { findAll, findWithPagination } from '../services/cdr.service'
 
 /**
  * Default selector for Cdr.
@@ -16,5 +20,11 @@ export const cdrRouter = router({
     .output(z.array(outputCdrSchema))
     .query(async () => {
       return await findAll()
+    }),
+  getListCdrByPagination: procedure
+    .input(paginationCdrSchema)
+    .output(outputCdrWithPaginationSchema)
+    .query(async ({ input }) => {
+      return await findWithPagination({ ...input })
     }),
 })

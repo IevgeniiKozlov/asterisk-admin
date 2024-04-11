@@ -5,6 +5,7 @@ export const createUserSchema = z.object({
   login: z.string(),
   password: z.string().min(4).max(12),
   role: z.string().min(1),
+  operators: z.array(z.string()),
 })
 
 export const updateUserSchema = createUserSchema.extend({
@@ -17,6 +18,7 @@ export const outputUserSchema = z.object({
   login: z.string(),
   password: z.string().min(4),
   role: z.string().min(1),
+  operators: z.array(z.string()),
 })
 
 export type ICreateUser = z.TypeOf<typeof createUserSchema>
