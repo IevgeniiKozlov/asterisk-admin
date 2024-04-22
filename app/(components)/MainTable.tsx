@@ -1,6 +1,7 @@
 'use client'
 
 import {
+  Button,
   Chip,
   ChipProps,
   Table,
@@ -11,6 +12,7 @@ import {
   TableRow,
   User,
 } from '@nextui-org/react'
+import { signOut } from 'next-auth/react'
 import React from 'react'
 import { columns, users } from '../(lib)/data'
 
@@ -75,24 +77,36 @@ export default function MainTable() {
   }, [])
 
   return (
-    <Table aria-label='Example table with custom cells'>
-      <TableHeader columns={columns}>
-        {column => (
-          <TableColumn
-            key={column.uid}
-            align={column.uid === 'actions' ? 'center' : 'start'}
-          >
-            {column.name}
-          </TableColumn>
-        )}
-      </TableHeader>
-      <TableBody items={users}>
-        {item => (
-          <TableRow key={item.id}>
-            {columnKey => <TableCell>{renderCell(item, columnKey)}</TableCell>}
-          </TableRow>
-        )}
-      </TableBody>
-    </Table>
+    <>
+      <Button
+        color='primary'
+        onClick={async () =>
+          await signOut({ callbackUrl: '/authentication/signin' })
+        }
+      >
+        Button
+      </Button>
+      <Table aria-label='Example table with custom cells'>
+        <TableHeader columns={columns}>
+          {column => (
+            <TableColumn
+              key={column.uid}
+              align={column.uid === 'actions' ? 'center' : 'start'}
+            >
+              {column.name}
+            </TableColumn>
+          )}
+        </TableHeader>
+        <TableBody items={users}>
+          {item => (
+            <TableRow key={item.id}>
+              {columnKey => (
+                <TableCell>{renderCell(item, columnKey)}</TableCell>
+              )}
+            </TableRow>
+          )}
+        </TableBody>
+      </Table>
+    </>
   )
 }
