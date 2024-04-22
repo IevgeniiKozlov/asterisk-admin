@@ -2,7 +2,7 @@ import prisma from '@/prisma/prisma-client'
 import { TRPCError } from '@trpc/server'
 import { compare, hash } from 'bcryptjs'
 import { ILoginUser } from '../schemas/auth.schema'
-import { ICreateUser } from '../schemas/user.schema'
+import { ICreateUser, IUpdateUser } from '../schemas/user.schema'
 import { IOutputUser } from './../schemas/user.schema'
 
 export const findAllUsers = async (): Promise<IOutputUser[]> => {
@@ -55,6 +55,23 @@ export const validateUser = async (data: ILoginUser): Promise<IOutputUser> => {
   throw new TRPCError({ code: 'UNAUTHORIZED' })
 }
 
+export const findByIdUser = async (id: number) => {
+  const user = await prisma.user.findUnique({
+    where: {
+      id,
+    },
+  })
+
+  if (!user) {
+    throw new TRPCError({
+      message: `User with ID "${id}" was not found`,
+      code: 'NOT_FOUND',
+    })
+  }
+
+  return user
+}
+
 export const createUser = async (data: ICreateUser): Promise<IOutputUser> => {
   const user: IOutputUser | null = await prisma.user.findUnique({
     where: {
@@ -77,4 +94,46 @@ export const createUser = async (data: ICreateUser): Promise<IOutputUser> => {
   })
 
   return newUser
+}
+
+export const updateUser = async (data: IUpdateUser): Promise<IOutputUser> => {
+  const { id, password, ...restData } = data
+  await findByIdUser(id)
+
+  const user = await prisma.user.findUnique({
+    where: {
+      login: data.login,
+    },
+  })
+
+  if (data.id !== user?.id) {
+    throw new TRPCError({
+      message: `Пользователь с логином ${data.login} уже существует`,
+      code: 'FORBIDDEN',
+    })
+  }
+
+  const newData = password
+    ? { ...restData, password: await hash(password, 10) }
+    : restData
+
+  const updatedUser = await prisma.user.update({
+    where: { id },
+    data: {
+      ...newData,
+    },
+  })
+
+  return updatedUser
+}
+
+export const removeUser = async (id: number) => {
+  const user = await prisma.user.delete({ where: { id } }).catch(() => {
+    throw new TRPCError({
+      message: `User with ID ${id} was not found`,
+      code: 'NOT_FOUND',
+    })
+  })
+
+  return user.id
 }

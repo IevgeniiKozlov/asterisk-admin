@@ -48,7 +48,7 @@ model cdr {
 
 model user {
   id        Int     @id @default(autoincrement())
-  name      String  @unique
+  name      String
   login     String  @unique
   password  String
   role      String  @default("user")
