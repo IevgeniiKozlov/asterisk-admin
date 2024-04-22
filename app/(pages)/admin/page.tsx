@@ -2,6 +2,7 @@ import Hydrate from '@/app/(utils)/trpc/hydrate-client'
 import { createSSRHelper } from '@/app/api/trpc/trpc-router'
 import { dehydrate } from '@tanstack/react-query'
 import Dashboard from './(components)/Dashboard'
+import Nav from './(components)/Nav'
 
 export const dynamic = 'force-dynamic'
 
@@ -11,7 +12,8 @@ export default async function Admin() {
 
   return (
     <Hydrate state={dehydrate(helpers.queryClient)}>
-      <main className='relative flex-auto'>
+      <Nav />
+      <main className='relative flex justify-center flex-auto'>
         <Dashboard />
       </main>
     </Hydrate>

@@ -20,7 +20,6 @@ import {
   TableHeader,
   TableRow,
 } from '@nextui-org/react'
-
 import { normalizeString } from '@/app/(helpers)/normalizeString'
 import { useCallback, useMemo, useState } from 'react'
 import { formatDate } from '../(helpers)/formatDate'
