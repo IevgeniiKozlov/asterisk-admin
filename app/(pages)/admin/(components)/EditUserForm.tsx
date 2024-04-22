@@ -63,7 +63,6 @@ const EditUserForm = ({ user }: IEditUserFormProps) => {
       router.refresh()
     },
     onError: (error: any) => {
-      // console.log(error)
       toast.error(error.message, {
         style: {
           borderRadius: '10px',

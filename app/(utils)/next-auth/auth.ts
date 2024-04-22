@@ -111,12 +111,6 @@ export const authOptions: any = {
         return true
       }
     },
-    // redirect: async ({ url, baseUrl }: { url: string; baseUrl: string }) => {
-    //   console.log('TTTEEESSTST')
-    //   if (url.startsWith('/admin')) return `${baseUrl}${url}`
-    //   else if (new URL(url).origin === baseUrl) return url
-    //   return baseUrl
-    // },
     jwt: async ({ token, user }: { token: any; user: any }): Promise<any> => {
       if (user) {
         token.userId = user.id
