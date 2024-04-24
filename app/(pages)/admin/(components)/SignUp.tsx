@@ -70,7 +70,7 @@ const SignUp = () => {
       role: 'admin',
       operators: null,
     }
-    createAdmin.mutate(userData)
+    await createAdmin.mutateAsync(userData)
     setSubmitting(false)
   }
 

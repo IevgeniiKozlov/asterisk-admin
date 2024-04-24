@@ -9,8 +9,9 @@ import {
 } from '@nextui-org/react'
 import { signOut } from 'next-auth/react'
 import toast from 'react-hot-toast'
+import { MdOutlineAdminPanelSettings } from 'react-icons/md'
 
-export default function CustomNavbar({ user }: { user: any }) {
+export default function CustomNavbar() {
   const handleLogOut = async () => {
     await signOut({ callbackUrl: '/admin/auth/signin', redirect: true })
     toast.success('Вы успешно вылогонились!', {
@@ -40,9 +41,9 @@ export default function CustomNavbar({ user }: { user: any }) {
         ],
       }}
     >
-      <NavbarBrand>
-        {/* <AcmeLogo /> */}
-        <p className='font-bold text-inherit'>ACME</p>
+      <NavbarBrand className='gap-1'>
+        <MdOutlineAdminPanelSettings size={20} />
+        <p className='font-bold text-inherit'>Admin Panel</p>
       </NavbarBrand>
       <NavbarContent
         className='hidden sm:flex gap-4'

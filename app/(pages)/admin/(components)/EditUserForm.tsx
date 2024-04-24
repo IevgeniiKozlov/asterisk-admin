@@ -88,7 +88,7 @@ const EditUserForm = ({ user }: IEditUserFormProps) => {
     const updatePassword = values.updatePassword
       ? { password: values.password }
       : {}
-    updateUser.mutate({ ...userData, ...updatePassword })
+    await updateUser.mutateAsync({ ...userData, ...updatePassword })
     setSubmitting(false)
   }
   return (
