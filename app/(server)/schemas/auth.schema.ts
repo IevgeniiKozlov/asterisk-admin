@@ -9,6 +9,7 @@ export const loginAdminSchema = z.object({
 export const signUpAdminSchema = loginAdminSchema.extend({
   name: z.string().min(1),
   role: z.string().min(1),
+  operators: z.string().nullable(),
 })
 
 export type ILoginAdmin = z.TypeOf<typeof loginAdminSchema>
@@ -30,7 +31,7 @@ export const outputAuthSchema = z.object({
 })
 
 export const resetPasswordSchema = z.object({
-  userId: z.string().min(1),
+  token: z.string().min(1),
   password: z.string().min(4).max(12),
 })
 

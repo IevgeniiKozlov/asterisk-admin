@@ -1,5 +1,6 @@
 import prisma from '@/prisma/prisma-client'
 import { TRPCError } from '@trpc/server'
+
 import {
   ILoginAdmin,
   ILoginUser,
@@ -9,10 +10,11 @@ import {
 import { createUser, validateAdmin, validateUser } from './user.service'
 
 export const isExistAdmin = async (): Promise<void> => {
-  const users = await prisma.user.findMany()
-  if (users.length > 0) {
+  const admin = await prisma.user.findFirst({ where: { role: 'admin' } })
+
+  if (admin) {
     throw new TRPCError({
-      message: 'Уже есть зарегестрированный админ',
+      message: 'Уже есть зарегистрированный админ',
       code: 'NOT_FOUND',
     })
   }
