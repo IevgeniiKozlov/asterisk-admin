@@ -73,6 +73,12 @@ const statusColorMap: Record<string, ChipProps['color']> = {
 const MainTable = () => {
   const cdr = trpc.getListCdr.useQuery(undefined)
 
+  const cdrPaginations = trpc.getListCdrByPagination.useQuery({
+    page: 1,
+    limit: 50,
+  })
+  console.log(cdrPaginations)
+
   const [filterValue, setFilterValue] = useState('')
   const [page, setPage] = useState(1)
   const [rowsPerPage, setRowsPerPage] = useState(50)
@@ -135,7 +141,7 @@ const MainTable = () => {
             </p>
           </div>
         )
-      case 'operator':
+      case 'src':
         return (
           <div className='flex flex-col'>
             <p className='text-bold text-sm capitalize'>{call.src}</p>
@@ -241,7 +247,7 @@ const MainTable = () => {
         </div>
         <div className='flex justify-between items-center'>
           <span className='text-default-400 text-small'>
-            Всего {cdr.data.length} звонков
+            Всего {cdr?.data?.length} звонков
           </span>
           <label className='flex items-center text-default-400 text-small'>
             Количество строк на страниице:
@@ -261,7 +267,7 @@ const MainTable = () => {
     filterValue,
     onSearchChange,
     statusFilter,
-    cdr.data.length,
+    cdr?.data?.length,
     onRowsPerPageChange,
     onClear,
   ])
