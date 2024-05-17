@@ -47,10 +47,12 @@ model cdr {
 }
 
 model user {
-  id        Int     @id @default(autoincrement())
-  name      String  @unique
-  login     String  @unique
-  password  String
-  role      String  @default("user")
-  operators String?
+  id                        Int       @id @default(autoincrement())
+  name                      String
+  login                     String    @unique
+  password                  String
+  role                      String    @default("user")
+  operators                 String?
+  emailResetPassword        String?   @unique
+  passwordResetTokenExpires DateTime?
 }

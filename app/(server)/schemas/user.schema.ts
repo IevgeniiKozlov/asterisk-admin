@@ -8,8 +8,13 @@ export const createUserSchema = z.object({
   operators: z.string().nullable(),
 })
 
-export const updateUserSchema = createUserSchema.extend({
+export const updateUserSchema = z.object({
   id: z.number(),
+  name: z.string().min(1),
+  login: z.string(),
+  password: z.optional(z.string().min(4).max(12)),
+  role: z.string().min(1),
+  operators: z.string().nullable(),
 })
 
 export const outputUserSchema = z.object({

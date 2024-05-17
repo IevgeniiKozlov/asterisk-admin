@@ -1,28 +1,28 @@
 'use client'
 
-import { Button } from '@nextui-org/react'
-import { signOut } from 'next-auth/react'
-import toast from 'react-hot-toast'
+import { IOutputUser } from '@/app/(server)/schemas/user.schema'
+import { trpc } from '@/app/(utils)/trpc/trpc'
+import * as _ from 'lodash'
+import React from 'react'
+import AddUserForm from './AddUserForm'
+import TableUsers from './TableUsers'
 
 export default function Dashboard() {
+  const { data: dataCdrs } = trpc.getListCdr.useQuery(undefined)
+  const { data: dataUsers } = trpc.getListUsers.useQuery(undefined)
+  const users = React.useMemo(
+    () => (dataUsers as IOutputUser[]) || [],
+    [dataUsers],
+  )
+  const operators = React.useMemo(() => {
+    const operators = dataCdrs?.map(cdr => cdr.src).flat() || []
+    return _.uniq(operators)
+  }, [dataCdrs])
+
   return (
-    <>
-      Admin Page
-      <Button
-        color='primary'
-        onClick={async () => {
-          await signOut({ callbackUrl: '/admin/auth/signin', redirect: true })
-          toast.success('Вы успешно вылогонились!', {
-            style: {
-              borderRadius: '10px',
-              background: 'grey',
-              color: '#fff',
-            },
-          })
-        }}
-      >
-        Button
-      </Button>
-    </>
+    <section className='container flex flex-col gap-6 my-10'>
+      <AddUserForm operators={operators} />
+      <TableUsers users={users} />
+    </section>
   )
 }

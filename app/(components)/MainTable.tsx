@@ -1,5 +1,6 @@
 'use client'
 
+import { normalizeString } from '@/app/(helpers)/normalizeString'
 import { trpc } from '@/app/(utils)/trpc/trpc'
 import {
   Button,
@@ -20,9 +21,9 @@ import {
   TableHeader,
   TableRow,
 } from '@nextui-org/react'
-
-import { normalizeString } from '@/app/(helpers)/normalizeString'
+import { signOut } from 'next-auth/react'
 import { useCallback, useMemo, useState } from 'react'
+import toast from 'react-hot-toast'
 import { formatDate } from '../(helpers)/formatDate'
 import { timeCall } from '../(helpers)/formatTimeCall'
 import { Call, columns, statusOptions } from '../(lib)/data'
@@ -31,37 +32,6 @@ import { Call, columns, statusOptions } from '../(lib)/data'
 // import {VerticalDotsIcon} from "./VerticalDotsIcon";
 // import {ChevronDownIcon} from "./ChevronDownIcon";
 // import {SearchIcon} from "./SearchIcon";
-// import {capitalize} from "./utils";
-
-export interface ICallData {
-  id: number
-  calldate: string
-  clid: string
-  src: string
-  dst: string
-  realdst: string
-  dcontext: string
-  channel: string
-  dstchannel: string
-  lastapp: string
-  lastdata: string
-  start: string
-  answer: string
-  end: string
-  duration: number
-  billsec: number
-  disposition: string
-  amaflags: number
-  remoteip: string
-  accountcode: string
-  peeraccount: string
-  uniqueid: string
-  userfield: string
-  did: string
-  linkedid: string
-  sequence: number
-  filename: string | null
-}
 
 const statusColorMap: Record<string, ChipProps['color']> = {
   answered: 'success',
@@ -70,14 +40,9 @@ const statusColorMap: Record<string, ChipProps['color']> = {
   failed: 'secondary',
 }
 
-const MainTable = () => {
+const MainTable = ({ cdrPaginationData }: { cdrPaginationData: any }) => {
   const cdr = trpc.getListCdr.useQuery(undefined)
-
-  const cdrPaginations = trpc.getListCdrByPagination.useQuery({
-    page: 1,
-    limit: 50,
-  })
-  console.log(cdrPaginations)
+  console.log(cdrPaginationData)
 
   const [filterValue, setFilterValue] = useState('')
   const [page, setPage] = useState(1)
@@ -88,6 +53,17 @@ const MainTable = () => {
     column: 'calldate',
     direction: 'ascending',
   })
+
+  const handleLogOut = async () => {
+    await signOut({ callbackUrl: '/authentication/signin', redirect: true })
+    toast.success('Вы успешно вылогонились!', {
+      style: {
+        borderRadius: '10px',
+        background: 'grey',
+        color: '#fff',
+      },
+    })
+  }
 
   const hasSearchFilter = Boolean(filterValue)
 
@@ -110,7 +86,9 @@ const MainTable = () => {
     return filteredCdr
   }, [cdr.data, filterValue, hasSearchFilter, statusFilter])
 
-  const pages = Math.ceil(filteredItems.length / rowsPerPage)
+  // const pages = Math.ceil(filteredItems.length / rowsPerPage)
+  const pages = cdrPaginationData.totalPages
+  console.log(pages, 'totalpages')
 
   const items = useMemo(() => {
     const start = (page - 1) * rowsPerPage
@@ -318,7 +296,12 @@ const MainTable = () => {
 
   return (
     <section className='h-screen w-full'>
-      <div className='container mx-auto h-full flex flex-col xs:pt-[30px] sm:pt-[70px] items-start justify-start md:justify-start'>
+      <div className='container h-full mx-auto flex flex-col pt-[30px] items-start justify-start md:justify-start gap-10'>
+        <div className='ml-auto'>
+          <Button color='primary' onClick={handleLogOut} variant='flat'>
+            Выйти
+          </Button>
+        </div>
         <Table
           aria-label='Example table with custom cells, pagination and sorting'
           isHeaderSticky

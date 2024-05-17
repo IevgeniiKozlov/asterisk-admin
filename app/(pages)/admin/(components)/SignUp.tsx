@@ -5,6 +5,9 @@ import { Button, Input } from '@nextui-org/react'
 import type { FormikHelpers, FormikProps } from 'formik'
 import { Field, Form, Formik } from 'formik'
 import { useRouter } from 'next/navigation'
+
+import { useSession } from 'next-auth/react'
+import { redirect } from 'next/navigation'
 import { useState } from 'react'
 import toast from 'react-hot-toast'
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai'
@@ -13,6 +16,8 @@ import { HiMail } from 'react-icons/hi'
 import { object, ref, string } from 'yup'
 
 const SignUp = () => {
+  const { data: session } = useSession()
+
   const router = useRouter()
 
   const [isVisiblePassword, setIsVisiblePassword] = useState<boolean>(false)
@@ -48,7 +53,12 @@ const SignUp = () => {
   })
 
   const handleSubmit = async (
-    values: any,
+    values: {
+      name: string
+      email: string
+      password: string
+      passwordConfirmation: string
+    },
     { setSubmitting }: FormikHelpers<any>,
   ) => {
     setSubmitting(true)
@@ -58,9 +68,14 @@ const SignUp = () => {
       login: restData.email,
       password: restData.password,
       role: 'admin',
+      operators: null,
     }
-    createAdmin.mutate(userData)
+    await createAdmin.mutateAsync(userData)
     setSubmitting(false)
+  }
+
+  if (session && session.user.role === 'admin') {
+    redirect('/admin')
   }
 
   return (
