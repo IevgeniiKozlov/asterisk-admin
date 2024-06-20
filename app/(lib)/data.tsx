@@ -1,4 +1,4 @@
-export type Call = {
+export type Cdr = {
   id: number
   calldate: string
   clid: string
