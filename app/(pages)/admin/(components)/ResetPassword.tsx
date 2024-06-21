@@ -58,7 +58,7 @@ const ResetPassword = ({ searchParams }: IResetPasswordProps) => {
             color: '#fff',
           },
         })
-        router.push('/authentication/signin')
+        router.push('/admin/auth/signin')
         router.refresh()
       }
       resetForm()
