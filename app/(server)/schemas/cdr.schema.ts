@@ -1,6 +1,7 @@
 import { z } from 'zod'
 
 export const paginationCdrSchema = z.object({
+  where: z.any(),
   page: z.number().optional(),
   limit: z.number().optional(),
 })

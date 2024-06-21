@@ -1,14 +1,15 @@
 import prisma from '@/prisma/prisma-client'
-import { ICdr, ICdrWithPagination } from '../schemas/cdr.schema'
+import { ICdr, ICdrWithPagination, IPaginationCdr } from '../schemas/cdr.schema'
 
 export const findAll = async (): Promise<ICdr[]> => {
   return await prisma.cdr.findMany({})
 }
 
 export const findWithPagination = async ({
+  where,
   page = 1,
   limit = 1000000,
-}): Promise<ICdrWithPagination> => {
+}: IPaginationCdr): Promise<ICdrWithPagination> => {
   const result = {
     itemsCount: 0,
     totalItems: 0,
@@ -18,12 +19,15 @@ export const findWithPagination = async ({
     items: [] as ICdr[],
   }
 
-  const totalCdr = await prisma.cdr.findMany()
+  const totalCdr = await prisma.cdr.findMany({
+    where: { ...where },
+  })
 
   result.totalItems = totalCdr.length
   result.totalPages = Math.ceil(totalCdr.length / limit)
 
   const cdr = await prisma.cdr.findMany({
+    where: { ...where },
     take: limit,
     skip: limit * (page - 1),
   })
