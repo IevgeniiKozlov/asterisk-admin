@@ -93,11 +93,12 @@ const MainTable = () => {
     page,
     limit: rowsPerPage,
   })
-
+  console.log(dataCdrs, 'dataCdrs')
   const cdrs = useMemo(
     () => (dataCdrs?.items.length ? dataCdrs?.items : []),
     [dataCdrs?.items],
   )
+  console.log(cdrs, 'cdrs')
 
   const pages = dataCdrs?.totalPages || 0
 
@@ -271,14 +272,14 @@ const MainTable = () => {
 
   return (
     <section className='h-screen w-full'>
-      <div className='container h-full mx-auto flex flex-col pt-[30px] items-start justify-start md:justify-start gap-10'>
+      <div className='container h-[calc(100vh-80px)] mx-auto flex flex-col items-start justify-start md:justify-start gap-10'>
         <Table
-          aria-label='Example table with custom cells, pagination and sorting'
+          aria-label='table with custom cells, pagination and sorting'
           isHeaderSticky
           bottomContent={bottomContent}
           bottomContentPlacement='outside'
           classNames={{
-            wrapper: 'max-h-[600px]',
+            wrapper: 'max-h-full',
           }}
           sortDescriptor={sortDescriptor}
           topContent={topContent}

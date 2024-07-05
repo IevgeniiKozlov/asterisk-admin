@@ -10,7 +10,7 @@ const ForgotPasswordPage = () => {
 
   return (
     <Hydrate state={dehydrate(helpers.queryClient)}>
-      <main className='h-screen'>
+      <main className='h-screen bg-main-gradient'>
         <section className='container h-full flex justify-center mx-auto'>
           <div className='w-full relative flex flex-col items-center justify-center'>
             <ForgotPassword />

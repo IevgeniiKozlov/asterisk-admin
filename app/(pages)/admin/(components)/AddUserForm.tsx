@@ -95,7 +95,7 @@ const AddUserForm = ({ operators }: { operators: string[] }) => {
           {(props: FormikProps<any>) => (
             <Form
               onSubmit={props.handleSubmit}
-              className='flex flex-row items-center justify-center gap-3 text-white'
+              className='flex flex-row items-center content-center justify-center gap-3 text-white'
             >
               <Field name='name'>
                 {({ meta, field }: any) => (

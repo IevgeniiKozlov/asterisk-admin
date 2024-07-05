@@ -1,9 +1,11 @@
 'use client'
 
-import { Button, Input } from '@nextui-org/react'
+import { Button, Image, Input } from '@nextui-org/react'
 import type { FormikHelpers, FormikProps } from 'formik'
 import { Field, Form, Formik } from 'formik'
+import { AnimatePresence, motion } from 'framer-motion'
 import { signIn, useSession } from 'next-auth/react'
+import NextImage from 'next/image'
 import Link from 'next/link'
 import { redirect } from 'next/navigation'
 import { useState } from 'react'
@@ -64,111 +66,140 @@ const SignIn = () => {
   }
 
   return (
-    <div className='flex flex-col gap-8 bg-white shadow-md px-4 sm:px-6 md:px-8 lg:px-10 py-8 rounded-md w-full max-w-md'>
-      <h3 className='mb-2 text-center text-2xl font-semibold'>
-        Вход в кабинет суперпользователя
-      </h3>
-      <Formik
-        initialValues={{ login: '', password: '' }}
-        validationSchema={object().shape({
-          login: string().required('Введите Вашу почту'),
-          password: string().required('Введите Ваш пароль'),
-        })}
-        onSubmit={handleSubmit}
+    <AnimatePresence>
+      <motion.div
+        className='flex flex-col gap-8'
+        initial={{ opacity: 0, scale: 0.5 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{
+          duration: 0.3,
+          ease: [0, 0.71, 0.2, 1.01],
+          scale: {
+            type: 'spring',
+            damping: 5,
+            stiffness: 100,
+            restDelta: 0.001,
+          },
+        }}
       >
-        {(props: FormikProps<any>) => (
-          <Form
-            onSubmit={props.handleSubmit}
-            className='flex flex-col flex-wrap items-center justify-center gap-8'
+        <div className='w-[400px] flex flex-col items-center justify-center gap-8 sm:shadow-xl px-8 py-8 pt-12 bg-white rounded-[40px] z-20'>
+          <Image
+            as={NextImage}
+            src='/Asterisk_logo.png'
+            width={200}
+            height={100}
+            alt='asterisk info'
+          />
+          <h3 className='mb-4 text-zinc-500 text-center text-xl font-semibold'>
+            Вход в кабинет суперпользователя
+          </h3>
+          <Formik
+            initialValues={{ login: '', password: '' }}
+            validationSchema={object().shape({
+              login: string().required('Введите Вашу почту'),
+              password: string().required('Введите Ваш пароль'),
+            })}
+            onSubmit={handleSubmit}
           >
-            <Field name='login'>
-              {({ meta, field }: any) => (
-                <Input
-                  type='email'
-                  variant='bordered'
-                  label='Введите логин'
-                  labelPlacement='inside'
-                  isInvalid={!!(meta.touched && meta.error)}
-                  errorMessage={meta.touched && meta.error && meta.error}
-                  classNames={{
-                    label: [
-                      'font-base',
-                      'text-md',
-                      'group-data-[filled-within=true]:text-mid-blue',
-                    ],
-                    input: ['font-base', 'text-md'],
-                    inputWrapper: ['group-data-[focus=true]:border-mid-green'],
-                  }}
-                  endContent={
-                    <HiMail
-                      size={45}
-                      className='flex items-center p-2 text-mid-green'
+            {(props: FormikProps<any>) => (
+              <Form
+                onSubmit={props.handleSubmit}
+                className='flex flex-col flex-wrap items-center justify-center gap-6'
+              >
+                <Field name='login'>
+                  {({ meta, field }: any) => (
+                    <Input
+                      type='email'
+                      variant='bordered'
+                      label='Введите логин'
+                      labelPlacement='inside'
+                      isInvalid={!!(meta.touched && meta.error)}
+                      errorMessage={meta.touched && meta.error && meta.error}
+                      classNames={{
+                        label: [
+                          'font-base',
+                          'text-md',
+                          'group-data-[filled-within=true]:text-[#E48700]',
+                        ],
+                        input: ['font-base', 'text-md'],
+                        inputWrapper: [
+                          'group-data-[focus=true]:border-[#E48700]',
+                        ],
+                      }}
+                      endContent={
+                        <HiMail
+                          size={45}
+                          className='flex items-center p-2 text-[#E48700]'
+                        />
+                      }
+                      {...field}
                     />
-                  }
-                  {...field}
-                />
-              )}
-            </Field>
-            <Field name='password'>
-              {({ meta, field }: any) => (
-                <Input
-                  type={isVisiblePassword ? 'text' : 'password'}
-                  variant='bordered'
-                  isInvalid={!!(meta.touched && meta.error)}
-                  errorMessage={meta.touched && meta.error && meta.error}
-                  label='Введите пароль'
-                  labelPlacement='inside'
-                  classNames={{
-                    label: [
-                      'font-base',
-                      'text-md',
-                      'group-data-[filled-within=true]:text-mid-blue',
-                    ],
-                    input: ['font-base', 'text-md'],
-                    inputWrapper: ['group-data-[focus=true]:border-mid-green'],
-                  }}
-                  endContent={
-                    <button
-                      className='focus:outline-none'
-                      type='button'
-                      onClick={toggleVisibilityPassword}
-                    >
-                      {isVisiblePassword ? (
-                        <AiFillEyeInvisible
-                          size={45}
-                          className='flex p-2 text-mid-blue'
-                        />
-                      ) : (
-                        <AiFillEye
-                          size={45}
-                          className='flex p-2 text-mid-green'
-                        />
-                      )}
-                    </button>
-                  }
-                  {...field}
-                />
-              )}
-            </Field>
-            <Button
-              type='submit'
-              disabled={!props.isValid}
-              isLoading={props.isSubmitting}
-              className='w-full py-6 rounded-xl text-center text-xl font-bold'
-            >
-              Войти
-              <FiLogIn className='text-xl' />
-            </Button>
-          </Form>
-        )}
-      </Formik>
-      <Link
-        className='text-xl text-center font-bold transition duration-300 hover:scale-[1.03] focus:scale-[1.03]'
-        href='/admin/auth/forgot-password'
-      >
-        Забыли пароль?
-      </Link>
-    </div>
+                  )}
+                </Field>
+                <Field name='password'>
+                  {({ meta, field }: any) => (
+                    <Input
+                      type={isVisiblePassword ? 'text' : 'password'}
+                      variant='bordered'
+                      isInvalid={!!(meta.touched && meta.error)}
+                      errorMessage={meta.touched && meta.error && meta.error}
+                      label='Введите пароль'
+                      labelPlacement='inside'
+                      classNames={{
+                        label: [
+                          'font-base',
+                          'text-md',
+                          'group-data-[filled-within=true]:text-[#E48700]',
+                        ],
+                        input: ['font-base', 'text-md'],
+                        inputWrapper: [
+                          'group-data-[focus=true]:border-[#E48700]',
+                        ],
+                      }}
+                      endContent={
+                        <button
+                          className='focus:outline-none'
+                          type='button'
+                          onClick={toggleVisibilityPassword}
+                        >
+                          {isVisiblePassword ? (
+                            <AiFillEyeInvisible
+                              size={45}
+                              className='flex p-2 text-[#E48700]'
+                            />
+                          ) : (
+                            <AiFillEye
+                              size={45}
+                              className='flex p-2 text-[#E48700]'
+                            />
+                          )}
+                        </button>
+                      }
+                      {...field}
+                    />
+                  )}
+                </Field>
+                <Button
+                  type='submit'
+                  disabled={!props.isValid}
+                  isLoading={props.isSubmitting}
+                  className='w-full bg-[#E48700] py-6 rounded-xl text-center text-white text-lg font-semibold'
+                >
+                  Войти
+                  <FiLogIn className='text-xl' />
+                </Button>
+              </Form>
+            )}
+          </Formik>
+          <Link
+            className='text-xl text-zinc-500 text-center font-semibold transition duration-300 hover:scale-[1.03] focus:scale-[1.03]'
+            href='/admin/auth/forgot-password'
+          >
+            Забыли пароль?
+          </Link>
+        </div>
+      </motion.div>
+    </AnimatePresence>
   )
 }
 

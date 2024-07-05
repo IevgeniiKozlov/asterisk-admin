@@ -3,6 +3,7 @@
 import { Button, Input } from '@nextui-org/react'
 import type { FormikHelpers, FormikProps } from 'formik'
 import { Field, Form, Formik } from 'formik'
+import { AnimatePresence, motion } from 'framer-motion'
 import { useSession } from 'next-auth/react'
 import { redirect } from 'next/navigation'
 import toast from 'react-hot-toast'
@@ -59,68 +60,85 @@ const ForgotPassword = () => {
   }
 
   return (
-    <div className='flex flex-col gap-8 bg-white shadow-md px-4 sm:px-6 md:px-8 lg:px-10 py-8 rounded-md w-full max-w-md'>
-      <h3 className='mb-2 text-center text-2xl font-semibold'>
-        Восстановление пароля
-      </h3>
-      <Formik
-        initialValues={{
-          email: '',
+    <AnimatePresence>
+      <motion.div
+        className='flex flex-col gap-8'
+        initial={{ opacity: 0, scale: 0.5 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{
+          duration: 0.3,
+          ease: [0, 0.71, 0.2, 1.01],
+          scale: {
+            type: 'spring',
+            damping: 5,
+            stiffness: 100,
+            restDelta: 0.001,
+          },
         }}
-        validationSchema={object().shape({
-          email: string()
-            .max(30, 'Почта не должна превышать 30 символов')
-            .email('Неверный email адрес')
-            .required('Введите ваш email'),
-        })}
-        onSubmit={handleSubmit}
       >
-        {(props: FormikProps<any>) => (
-          <Form
-            onSubmit={props.handleSubmit}
-            className='flex flex-col items-center justify-center gap-6'
+        <div className='flex flex-col gap-8 bg-white shadow-md px-4 sm:px-6 md:px-8 lg:px-10 py-8 rounded-[40px] w-full max-w-md'>
+          <h3 className='text-center text-stone-600 text-2xl font-semibold'>
+            Восстановление пароля
+          </h3>
+          <Formik
+            initialValues={{
+              email: '',
+            }}
+            validationSchema={object().shape({
+              email: string()
+                .max(30, 'Почта не должна превышать 30 символов')
+                .email('Неверный email адрес')
+                .required('Введите ваш email'),
+            })}
+            onSubmit={handleSubmit}
           >
-            <Field name='email'>
-              {({ meta, field }: any) => (
-                <Input
-                  type='email'
-                  variant='bordered'
-                  label='Введите почту'
-                  labelPlacement='inside'
-                  isInvalid={!!(meta.touched && meta.error)}
-                  errorMessage={meta.touched && meta.error && meta.error}
-                  classNames={{
-                    label: [
-                      'font-base',
-                      'text-md',
-                      'text-white-dis',
-                      'group-data-[filled-within=true]:text-mid-blue',
-                    ],
-                    input: ['font-base', 'text-md', 'text-white-dis'],
-                    inputWrapper: ['group-data-[focus=true]:border-mid-green'],
-                  }}
-                  endContent={
-                    <HiMail
-                      size={45}
-                      className='flex items-center p-2 text-mid-green'
+            {(props: FormikProps<any>) => (
+              <Form
+                onSubmit={props.handleSubmit}
+                className='flex flex-col items-center justify-center gap-6'
+              >
+                <Field name='email'>
+                  {({ meta, field }: any) => (
+                    <Input
+                      type='email'
+                      variant='bordered'
+                      label='Введите почту'
+                      labelPlacement='inside'
+                      isInvalid={!!(meta.touched && meta.error)}
+                      errorMessage={meta.touched && meta.error && meta.error}
+                      classNames={{
+                        label: [
+                          'font-base',
+                          'text-md',
+                          'text-[#E48700]',
+                          'group-data-[filled-within=true]:text-[#E48700]',
+                        ],
+                        input: ['font-base', 'text-md', 'text-[#E48700]'],
+                        inputWrapper: [
+                          'group-data-[focus=true]:border-[#E48700]',
+                        ],
+                      }}
+                      endContent={
+                        <HiMail size={45} className='flex p-2 text-[#E48700]' />
+                      }
+                      {...field}
                     />
-                  }
-                  {...field}
-                />
-              )}
-            </Field>
-            <Button
-              type='submit'
-              disabled={!props.isValid}
-              isLoading={props.isSubmitting}
-              className='w-full py-6 rounded-xl text-center text-xl font-bold'
-            >
-              Отправить запрос
-            </Button>
-          </Form>
-        )}
-      </Formik>
-    </div>
+                  )}
+                </Field>
+                <Button
+                  type='submit'
+                  disabled={!props.isValid}
+                  isLoading={props.isSubmitting}
+                  className='w-full bg-[#E48700] py-6 rounded-xl text-center text-white text-lg font-semibold'
+                >
+                  Отправить запрос
+                </Button>
+              </Form>
+            )}
+          </Formik>
+        </div>
+      </motion.div>
+    </AnimatePresence>
   )
 }
 
