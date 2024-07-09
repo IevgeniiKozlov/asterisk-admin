@@ -6,7 +6,7 @@ export const dynamic = 'force-dynamic'
 
 const SignInPage = () => {
   return (
-    <main className='h-screen flex xs:bg-[#ECBC76] lg:bg-white'>
+    <main className='h-screen flex xs:bg-[#ECBC76] lg:bg-gray-200'>
       <section className='flex mx-auto container-2xl h-full w-full justify-center '>
         <div className='w-1/2 bg-[#ECBC76] hidden lg:flex lg:bg-[#ECBC76] flex-wrap content-center justify-center'>
           <Image

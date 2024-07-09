@@ -261,7 +261,7 @@ const MainTable = () => {
           isCompact
           showControls
           showShadow
-          color='primary'
+          color='warning'
           page={page}
           total={pages}
           onChange={page => setPage(page)}
@@ -276,10 +276,11 @@ const MainTable = () => {
         <Table
           aria-label='table with custom cells, pagination and sorting'
           isHeaderSticky
+          isStriped
           bottomContent={bottomContent}
           bottomContentPlacement='outside'
           classNames={{
-            wrapper: 'max-h-full',
+            wrapper: 'max-h-[500px]',
           }}
           sortDescriptor={sortDescriptor}
           topContent={topContent}

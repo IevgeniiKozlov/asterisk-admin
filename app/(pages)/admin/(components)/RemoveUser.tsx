@@ -61,8 +61,8 @@ const RemoveUser = ({ user }: IRemoveUserProps) => {
       <PopoverTrigger>
         <Button isIconOnly aria-label='Delete user'>
           <MdDelete
-            size='1.5rem'
-            className='transition-colors hover:fill-[red] focus:fill-[red]'
+            size={25}
+            className='transition-colors hover:fill-[black] focus:fill-[black]'
           />
         </Button>
       </PopoverTrigger>

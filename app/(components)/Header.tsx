@@ -28,9 +28,9 @@ const Header = () => {
           alt='asterisk info'
         />
         <Button
-          className='w-[140px] bg-[#E48700] py-2 rounded-xl text-center text-white text-lg font-semibold'
+          variant='bordered'
+          className='border-stone-600 bg-[#ECBC76] py-4 rounded-xl text-center text-white text-sm font-semibold'
           onClick={handleLogOut}
-          variant='flat'
         >
           Выйти
           <FiLogIn className='text-xl' />
