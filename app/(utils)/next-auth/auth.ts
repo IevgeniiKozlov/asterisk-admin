@@ -22,15 +22,13 @@ export const authOptions: any = {
         role: { type: 'string' },
       },
       async authorize(credentials: any): Promise<any> {
-        const response = await createCaller({}).loginAdmin({
+        const response = await createCaller({ session: null }).loginAdmin({
           login: credentials.login,
           password: credentials.password,
         })
-
         if (response) {
           return response
         }
-
         return Promise.reject(
           'Ошибка авторизации, проверьте правильность ввода логина и пароля',
         )
@@ -48,15 +46,13 @@ export const authOptions: any = {
         role: { type: 'string' },
       },
       async authorize(credentials: any): Promise<any> {
-        const response = await createCaller({}).loginUser({
+        const response = await createCaller({ session: null }).loginUser({
           login: credentials.login,
           password: credentials.password,
         })
-
         if (response) {
           return response
         }
-
         return Promise.reject(
           'Ошибка авторизации, проверьте правильность ввода логина и пароля',
         )
@@ -66,10 +62,7 @@ export const authOptions: any = {
   session: {
     strategy: 'jwt',
     maxAge: 24 * 60 * 60,
-  },
-  jwt: {
-    secret: process.env.NEXTAUTH_SECRET,
-    maxAge: 60 * 60 * 24 * 30,
+    updateAge: 60,
   },
   callbacks: {
     authorized: ({ auth, request }: { auth: any; request: any }) => {
@@ -113,8 +106,9 @@ export const authOptions: any = {
     },
     jwt: async ({ token, user }: { token: any; user: any }): Promise<any> => {
       if (user) {
-        token.userId = user.id
+        token.id = user.id
         token.role = user.role
+        token.name = user.name
       }
       return token
     },
@@ -128,8 +122,9 @@ export const authOptions: any = {
       return {
         ...session,
         user: {
-          id: token.userId,
+          id: token.id,
           role: token.role,
+          name: token.name,
         },
       }
     },

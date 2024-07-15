@@ -93,12 +93,11 @@ const MainTable = () => {
     page,
     limit: rowsPerPage,
   })
-  console.log(dataCdrs, 'dataCdrs')
+
   const cdrs = useMemo(
     () => (dataCdrs?.items.length ? dataCdrs?.items : []),
     [dataCdrs?.items],
   )
-  console.log(cdrs, 'cdrs')
 
   const pages = dataCdrs?.totalPages || 0
 

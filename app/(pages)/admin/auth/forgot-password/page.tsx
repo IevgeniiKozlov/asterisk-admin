@@ -1,12 +1,14 @@
 import ForgotPassword from '@/app/(pages)/admin/(components)/ForgotPassword'
+import { auth } from '@/app/(utils)/next-auth/auth'
 import Hydrate from '@/app/(utils)/trpc/hydrate-client'
 import { createSSRHelper } from '@/app/api/trpc/trpc-router'
 import { dehydrate } from '@tanstack/react-query'
 
 export const dynamic = 'force-dynamic'
 
-const ForgotPasswordPage = () => {
-  const helpers = createSSRHelper()
+const ForgotPasswordPage = async () => {
+  const session = await auth()
+  const helpers = createSSRHelper(session)
 
   return (
     <Hydrate state={dehydrate(helpers.queryClient)}>

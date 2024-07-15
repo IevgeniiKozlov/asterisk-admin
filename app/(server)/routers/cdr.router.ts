@@ -1,4 +1,4 @@
-import { procedure, router } from '@/app/(utils)/trpc/trpc-server'
+import { protectedProcedure, router } from '@/app/(utils)/trpc/trpc-server'
 import { z } from 'zod'
 import {
   outputCdrSchema,
@@ -15,13 +15,13 @@ import { findAll, findWithPagination } from '../services/cdr.service'
 // const defaultCdrSelect = {} satisfies Prisma.CdrSelect
 
 export const cdrRouter = router({
-  getListCdr: procedure
+  getListCdr: protectedProcedure
     .input(z.void())
     .output(z.array(outputCdrSchema))
     .query(async () => {
       return await findAll()
     }),
-  getListCdrByPagination: procedure
+  getListCdrByPagination: protectedProcedure
     .input(paginationCdrSchema)
     .output(outputCdrWithPaginationSchema)
     .query(async ({ input }) => {

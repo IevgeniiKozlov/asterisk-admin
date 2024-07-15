@@ -6,13 +6,8 @@ declare module 'next-auth' {
     user: {
       id: string
       role: string
+      name: string
     }
-  }
-}
-
-declare module 'next-auth/jwt' {
-  interface JWT {
-    userId: string
-    role: string
+    expires: string
   }
 }

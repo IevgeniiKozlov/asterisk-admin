@@ -15,7 +15,7 @@ interface ITrpcProviderProps {
   session: Session | null
 }
 
-export const TrpcProvider = ({ children, session }: ITrpcProviderProps) => {
+export const TrpcProvider = ({ children }: ITrpcProviderProps) => {
   const [trpcClient] = useState(() =>
     trpc.createClient({
       links: [
@@ -33,7 +33,7 @@ export const TrpcProvider = ({ children, session }: ITrpcProviderProps) => {
     <trpc.Provider client={trpcClient} queryClient={queryClient}>
       <QueryClientProvider client={queryClient}>
         {children}
-        <ReactQueryDevtools />
+        <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>
     </trpc.Provider>
   )
