@@ -100,9 +100,17 @@ const EditUserForm = ({ user }: IEditUserFormProps) => {
         }}
         isIconOnly
       >
-        <MdEdit size='1.5rem' />
+        <MdEdit
+          size={25}
+          className='transition-colors hover:fill-[black] focus:fill-[black]'
+        />
       </Button>
-      <Modal isOpen={isOpen} onOpenChange={onOpenChange} placement='top-center'>
+      <Modal
+        backdrop='blur'
+        isOpen={isOpen}
+        onOpenChange={onOpenChange}
+        placement='top-center'
+      >
         <Formik
           initialValues={{
             name: user.name,
@@ -139,7 +147,7 @@ const EditUserForm = ({ user }: IEditUserFormProps) => {
               <ModalContent>
                 {onClose => (
                   <>
-                    <ModalHeader className='flex flex-col gap-1 text-black'>
+                    <ModalHeader className='flex flex-col gap-1 text-stone-600'>
                       Редактирование Пользователя
                     </ModalHeader>
                     <ModalBody className='pb-6'>
@@ -155,9 +163,16 @@ const EditUserForm = ({ user }: IEditUserFormProps) => {
                               meta.touched && meta.error && meta.error
                             }
                             classNames={{
-                              label: ['font-base', 'text-md', 'text-black'],
-                              input: ['font-base', 'text-md', 'text-black'],
-                              inputWrapper: ['bg-white'],
+                              label: [
+                                'text-sm',
+                                'text-stone-300',
+                                'group-data-[filled-within=true]:text-[#E48700]',
+                              ],
+                              input: ['text-sm', 'text-black'],
+                              inputWrapper: [
+                                'group-data-[focus=true]:border-[#E48700]',
+                                'group-data-[hover=true]:border-[#E48700]',
+                              ],
                             }}
                             {...field}
                           />
@@ -175,9 +190,16 @@ const EditUserForm = ({ user }: IEditUserFormProps) => {
                               meta.touched && meta.error && meta.error
                             }
                             classNames={{
-                              label: ['font-base', 'text-md', 'text-black'],
-                              input: ['font-base', 'text-md', 'text-black'],
-                              inputWrapper: ['bg-white'],
+                              label: [
+                                'text-sm',
+                                'text-stone-300',
+                                'group-data-[filled-within=true]:text-[#E48700]',
+                              ],
+                              input: ['text-sm', 'text-black'],
+                              inputWrapper: [
+                                'group-data-[focus=true]:border-[#E48700]',
+                                'group-data-[hover=true]:border-[#E48700]',
+                              ],
                             }}
                             {...field}
                           />
@@ -189,7 +211,9 @@ const EditUserForm = ({ user }: IEditUserFormProps) => {
                             <Select
                               label='Операторы'
                               selectionMode='multiple'
-                              className='w-full'
+                              classNames={{
+                                selectorIcon: ['text-black'],
+                              }}
                               selectedKeys={valuesOperators}
                               onChange={handleSelectionChange}
                             >
@@ -216,9 +240,16 @@ const EditUserForm = ({ user }: IEditUserFormProps) => {
                           key='1'
                           aria-label='Password'
                           indicator={({ isOpen }) =>
-                            isOpen ? <FcCancel /> : <MdOutlineSyncLock />
+                            isOpen ? (
+                              <FcCancel size={25} />
+                            ) : (
+                              <MdOutlineSyncLock
+                                size={25}
+                                className='text-[#ECBC76]'
+                              />
+                            )
                           }
-                          title='Обновить пароль?'
+                          title='Обновить пароль'
                           classNames={{ title: 'text-blue-500' }}
                         >
                           <Field name='password'>
@@ -233,9 +264,12 @@ const EditUserForm = ({ user }: IEditUserFormProps) => {
                                 label='Введите пароль'
                                 labelPlacement='inside'
                                 classNames={{
-                                  label: ['font-base', 'text-md', 'text-black'],
-                                  input: ['font-base', 'text-md', 'text-black'],
-                                  inputWrapper: ['bg-white'],
+                                  label: ['text-sm', 'text-stone-300'],
+                                  input: ['text-sm', 'text-stone-300'],
+                                  inputWrapper: [
+                                    'group-data-[focus=true]:border-[#E48700]',
+                                    'group-data-[hover=true]:border-[#E48700]',
+                                  ],
                                 }}
                                 endContent={
                                   <button
@@ -246,12 +280,12 @@ const EditUserForm = ({ user }: IEditUserFormProps) => {
                                     {isVisiblePassword ? (
                                       <AiFillEyeInvisible
                                         size={45}
-                                        className='flex p-2'
+                                        className='flex p-2 text-stone-300'
                                       />
                                     ) : (
                                       <AiFillEye
                                         size={45}
-                                        className='flex p-2'
+                                        className='flex p-2 text-stone-400'
                                       />
                                     )}
                                   </button>
@@ -266,18 +300,19 @@ const EditUserForm = ({ user }: IEditUserFormProps) => {
                     <ModalFooter>
                       <Button
                         color='danger'
-                        variant='flat'
+                        variant='ghost'
                         onPress={onClose}
                         className='rounded-xl'
                       >
                         Отменить
                       </Button>
                       <Button
+                        variant='ghost'
                         color='success'
                         type='submit'
                         disabled={!props.isValid}
                         isLoading={props.isSubmitting}
-                        className='rounded-xl text-white'
+                        className='rounded-xl'
                       >
                         Сохранить
                       </Button>

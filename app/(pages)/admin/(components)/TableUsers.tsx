@@ -103,14 +103,16 @@ const TableUsers = ({ users }: ITableUsersProps) => {
         return (
           <div className='flex flex-wrap gap-2'>
             {operators.map((operator: string) => (
-              <Chip key={operator}>{operator}</Chip>
+              <Chip color='warning' variant='faded' key={operator}>
+                {operator}
+              </Chip>
             ))}
           </div>
         )
       }
       case 'actions':
         return (
-          <ButtonGroup>
+          <ButtonGroup variant='faded' color='warning'>
             <EditUserForm user={user} />
             <RemoveUser user={user} />
           </ButtonGroup>
@@ -177,7 +179,7 @@ const TableUsers = ({ users }: ITableUsersProps) => {
           isCompact
           showControls
           showShadow
-          color='primary'
+          color='warning'
           page={page}
           total={pages}
           onChange={setPage}
@@ -190,10 +192,11 @@ const TableUsers = ({ users }: ITableUsersProps) => {
     <Table
       aria-label='Example table with custom cells, pagination and sorting'
       isHeaderSticky
+      isStriped
       bottomContent={bottomContent}
       bottomContentPlacement='outside'
       classNames={{
-        wrapper: 'max-h-[382px]',
+        wrapper: 'max-h-[500px]',
       }}
       topContent={topContent}
       topContentPlacement='outside'

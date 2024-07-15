@@ -108,14 +108,14 @@ const ForgotPassword = () => {
                       errorMessage={meta.touched && meta.error && meta.error}
                       classNames={{
                         label: [
-                          'font-base',
-                          'text-md',
-                          'text-[#E48700]',
+                          'text-sm',
+                          'text-stone-300',
                           'group-data-[filled-within=true]:text-[#E48700]',
                         ],
-                        input: ['font-base', 'text-md', 'text-[#E48700]'],
+                        input: ['text-sm', 'text-black'],
                         inputWrapper: [
                           'group-data-[focus=true]:border-[#E48700]',
+                          'group-data-[hover=true]:border-[#E48700]',
                         ],
                       }}
                       endContent={

@@ -70,7 +70,7 @@ const SignIn = () => {
           height={100}
           alt='asterisk info'
         />
-        <h3 className='mb-4 text-center text-2xl font-semibold'>
+        <h3 className='mb-4 text-center text-2xl font-semibold text-stone-500'>
           Вход в кабинет
         </h3>
         <Formik
@@ -97,13 +97,14 @@ const SignIn = () => {
                     errorMessage={meta.touched && meta.error && meta.error}
                     classNames={{
                       label: [
-                        'font-base',
-                        'text-md',
-                        'group-data-[filled-within=true]:text-gray',
+                        'text-sm',
+                        'text-stone-300',
+                        'group-data-[filled-within=true]:text-[#E48700]',
                       ],
-                      input: ['font-base', 'text-md'],
+                      input: ['text-black', 'text-sm'],
                       inputWrapper: [
                         'group-data-[focus=true]:border-[#E48700]',
+                        'group-data-[hover=true]:border-[#E48700]',
                       ],
                     }}
                     endContent={
@@ -127,13 +128,14 @@ const SignIn = () => {
                     labelPlacement='inside'
                     classNames={{
                       label: [
-                        'font-base',
-                        'text-md',
-                        'group-data-[filled-within=true]:text-mid-blue',
+                        'text-sm',
+                        'text-stone-300',
+                        'group-data-[filled-within=true]:text-[#E48700]',
                       ],
-                      input: ['font-base', 'text-md'],
+                      input: ['text-black', 'text-sm'],
                       inputWrapper: [
-                        'group-data-[focus=true]:border-mid-green',
+                        'group-data-[focus=true]:border-[#E48700]',
+                        'group-data-[hover=true]:border-[#E48700]',
                       ],
                     }}
                     endContent={

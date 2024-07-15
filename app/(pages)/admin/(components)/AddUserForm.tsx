@@ -13,7 +13,7 @@ import { Field, Form, Formik, FormikHelpers, FormikProps } from 'formik'
 import { useRouter } from 'next/navigation'
 import React from 'react'
 import toast from 'react-hot-toast'
-import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai'
+import { AiFillEye, AiFillEyeInvisible, AiOutlineUserAdd } from 'react-icons/ai'
 import { IoMdAdd } from 'react-icons/io'
 import * as Yup from 'yup'
 
@@ -65,7 +65,7 @@ const AddUserForm = ({ operators }: { operators: string[] }) => {
   }
 
   return (
-    <Accordion variant='splitted'>
+    <Accordion variant='splitted' className='px-0'>
       <AccordionItem
         key='1'
         startContent={<IoMdAdd size={25} />}
@@ -95,7 +95,7 @@ const AddUserForm = ({ operators }: { operators: string[] }) => {
           {(props: FormikProps<any>) => (
             <Form
               onSubmit={props.handleSubmit}
-              className='flex flex-row items-center content-center justify-center gap-3 text-white'
+              className='flex flex-col lg:flex-row items-center content-center justify-center gap-5 text-white'
             >
               <Field name='name'>
                 {({ meta, field }: any) => (
@@ -103,13 +103,21 @@ const AddUserForm = ({ operators }: { operators: string[] }) => {
                     type='text'
                     label='Имя'
                     labelPlacement='inside'
+                    size='sm'
                     variant='bordered'
                     isInvalid={!!(meta.touched && meta.error)}
                     errorMessage={meta.touched && meta.error && meta.error}
                     classNames={{
-                      label: ['font-base', 'text-md', 'text-black'],
-                      input: ['font-base', 'text-md', 'text-black'],
-                      inputWrapper: ['bg-white'],
+                      label: [
+                        'text-sm',
+                        'text-stone-300',
+                        'group-data-[filled-within=true]:text-[#E48700]',
+                      ],
+                      input: ['text-sm', 'text-black'],
+                      inputWrapper: [
+                        'group-data-[focus=true]:border-[#E48700]',
+                        'group-data-[hover=true]:border-[#E48700]',
+                      ],
                     }}
                     {...field}
                   />
@@ -121,13 +129,21 @@ const AddUserForm = ({ operators }: { operators: string[] }) => {
                     type='text'
                     label='Логин'
                     labelPlacement='inside'
+                    size='sm'
                     variant='bordered'
                     isInvalid={!!(meta.touched && meta.error)}
                     errorMessage={meta.touched && meta.error && meta.error}
                     classNames={{
-                      label: ['font-base', 'text-md', 'text-black'],
-                      input: ['font-base', 'text-md', 'text-black'],
-                      inputWrapper: ['bg-white'],
+                      label: [
+                        'text-sm',
+                        'text-stone-300',
+                        'group-data-[filled-within=true]:text-[#E48700]',
+                      ],
+                      input: ['text-sm', 'text-black'],
+                      inputWrapper: [
+                        'group-data-[focus=true]:border-[#E48700]',
+                        'group-data-[hover=true]:border-[#E48700]',
+                      ],
                     }}
                     {...field}
                   />
@@ -142,10 +158,18 @@ const AddUserForm = ({ operators }: { operators: string[] }) => {
                     errorMessage={meta.touched && meta.error && meta.error}
                     label='Введите пароль'
                     labelPlacement='inside'
+                    size='sm'
                     classNames={{
-                      label: ['font-base', 'text-md', 'text-black'],
-                      input: ['font-base', 'text-md', 'text-black'],
-                      inputWrapper: ['bg-white'],
+                      label: [
+                        'text-sm',
+                        'text-stone-300',
+                        'group-data-[filled-within=true]:text-[#E48700]',
+                      ],
+                      input: ['text-sm', 'text-black'],
+                      inputWrapper: [
+                        'group-data-[focus=true]:border-[#E48700]',
+                        'group-data-[hover=true]:border-[#E48700]',
+                      ],
                     }}
                     endContent={
                       <button
@@ -154,9 +178,15 @@ const AddUserForm = ({ operators }: { operators: string[] }) => {
                         onClick={toggleVisibilityPassword}
                       >
                         {isVisiblePassword ? (
-                          <AiFillEyeInvisible size={45} className='flex p-2' />
+                          <AiFillEyeInvisible
+                            size={45}
+                            className='flex p-2 text-stone-300'
+                          />
                         ) : (
-                          <AiFillEye size={45} className='flex p-2' />
+                          <AiFillEye
+                            size={45}
+                            className='flex p-2 text-stone-400'
+                          />
                         )}
                       </button>
                     }
@@ -171,8 +201,12 @@ const AddUserForm = ({ operators }: { operators: string[] }) => {
                       label='Операторы'
                       selectionMode='multiple'
                       className='max-w-xs'
+                      size='sm'
                       selectedKeys={valuesOperators}
                       onChange={handleSelectionChange}
+                      classNames={{
+                        selectorIcon: ['text-black'],
+                      }}
                     >
                       {operators.map((operator: string) => (
                         <SelectItem key={operator} value={operator}>
@@ -185,12 +219,12 @@ const AddUserForm = ({ operators }: { operators: string[] }) => {
               </Field>
               <Button
                 type='submit'
-                color='success'
                 disabled={!props.isValid}
                 isLoading={props.isSubmitting}
-                className='h-full py-3 w-2/5'
+                isIconOnly
+                className='bg-[#ECBC76]'
               >
-                <span className='text-center text-xl font-bold'>Создать</span>
+                <AiOutlineUserAdd size={90} className='flex p-2' />
               </Button>
             </Form>
           )}
