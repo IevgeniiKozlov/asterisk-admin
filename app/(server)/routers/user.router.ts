@@ -1,4 +1,4 @@
-import { procedure, router } from '@/app/(utils)/trpc/trpc-server'
+import { protectedProcedure, router } from '@/app/(utils)/trpc/trpc-server'
 import { z } from 'zod'
 import {
   createUserSchema,
@@ -13,25 +13,25 @@ import {
 } from '../services/user.service'
 
 export const userRouter = router({
-  getListUsers: procedure
+  getListUsers: protectedProcedure
     .input(z.void())
     .output(z.array(outputUserSchema))
     .query(async () => {
       return await findAllUsers()
     }),
-  registerUser: procedure
+  registerUser: protectedProcedure
     .input(createUserSchema)
     .output(outputUserSchema)
     .mutation(async ({ input }) => {
       return await createUser({ ...input })
     }),
-  updateUser: procedure
+  updateUser: protectedProcedure
     .input(updateUserSchema)
     .output(outputUserSchema)
     .mutation(async ({ input }) => {
       return await updateUser({ ...input })
     }),
-  removeUser: procedure
+  removeUser: protectedProcedure
     .input(z.object({ id: z.number() }))
     .output(z.object({ id: z.number() }))
     .mutation(async ({ input }) => {

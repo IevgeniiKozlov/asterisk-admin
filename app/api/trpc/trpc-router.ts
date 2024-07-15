@@ -8,6 +8,7 @@ import {
   router,
 } from '@/app/(utils)/trpc/trpc-server'
 import { createServerSideHelpers } from '@trpc/react-query/server'
+import { Session } from 'next-auth'
 import SuperJSON from 'superjson'
 
 const healthCheckerRouter = router({
@@ -26,11 +27,11 @@ export const appRouter = mergeRouters(
   healthCheckerRouter,
 )
 
-export const createSSRHelper = () =>
+export const createSSRHelper = (session: Session | null) =>
   createServerSideHelpers({
     router: appRouter,
     transformer: SuperJSON,
-    ctx: () => {},
+    ctx: { session: session },
   })
 
 export const createCaller = createCallerFactory(authRouter)
