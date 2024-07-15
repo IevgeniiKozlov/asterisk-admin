@@ -1,12 +1,14 @@
 import SignIn from '@/app/(pages)/admin/(components)/SignIn'
+import { auth } from '@/app/(utils)/next-auth/auth'
 import Hydrate from '@/app/(utils)/trpc/hydrate-client'
 import { createSSRHelper } from '@/app/api/trpc/trpc-router'
 import { dehydrate } from '@tanstack/react-query'
 
 export const dynamic = 'force-dynamic'
 
-const SignInPage = () => {
-  const helpers = createSSRHelper()
+const SignInPage = async () => {
+  const session = await auth()
+  const helpers = createSSRHelper(session)
 
   return (
     <Hydrate state={dehydrate(helpers.queryClient)}>

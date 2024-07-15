@@ -2,18 +2,23 @@ import Hydrate from '@/app/(utils)/trpc/hydrate-client'
 import { dehydrate } from '@tanstack/react-query'
 import Header from './(components)/Header'
 import MainTable from './(components)/MainTable'
+import { auth } from './(utils)/next-auth/auth'
 import { createSSRHelper } from './api/trpc/trpc-router'
 
 export const dynamic = 'force-dynamic'
 
 export default async function Home() {
-  const helpers = createSSRHelper()
+  const session = await auth()
+  const helpers = createSSRHelper(session)
   await helpers.getListCdr.fetch()
 
   return (
     <Hydrate state={dehydrate(helpers.queryClient)}>
       <main className='relative flex-auto'>
-        <Header />
+        <Header
+          signOutUrl='/authentication/signin'
+          userName={session!.user.name}
+        />
         <MainTable />
       </main>
     </Hydrate>
