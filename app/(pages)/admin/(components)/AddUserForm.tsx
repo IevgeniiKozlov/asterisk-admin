@@ -111,12 +111,12 @@ const AddUserForm = ({ operators }: { operators: string[] }) => {
                       label: [
                         'text-sm',
                         'text-stone-300',
-                        'group-data-[filled-within=true]:text-[#E48700]',
+                        'group-data-[filled-within=true]:text-primary-orange',
                       ],
                       input: ['text-sm', 'text-black'],
                       inputWrapper: [
-                        'group-data-[focus=true]:border-[#E48700]',
-                        'group-data-[hover=true]:border-[#E48700]',
+                        'group-data-[focus=true]:border-primary-orange',
+                        'group-data-[hover=true]:border-primary-orange',
                       ],
                     }}
                     {...field}
@@ -137,12 +137,12 @@ const AddUserForm = ({ operators }: { operators: string[] }) => {
                       label: [
                         'text-sm',
                         'text-stone-300',
-                        'group-data-[filled-within=true]:text-[#E48700]',
+                        'group-data-[filled-within=true]:text-primary-orange',
                       ],
                       input: ['text-sm', 'text-black'],
                       inputWrapper: [
-                        'group-data-[focus=true]:border-[#E48700]',
-                        'group-data-[hover=true]:border-[#E48700]',
+                        'group-data-[focus=true]:border-primary-orange',
+                        'group-data-[hover=true]:border-primary-orange',
                       ],
                     }}
                     {...field}
@@ -163,12 +163,12 @@ const AddUserForm = ({ operators }: { operators: string[] }) => {
                       label: [
                         'text-sm',
                         'text-stone-300',
-                        'group-data-[filled-within=true]:text-[#E48700]',
+                        'group-data-[filled-within=true]:text-primary-orange',
                       ],
                       input: ['text-sm', 'text-black'],
                       inputWrapper: [
-                        'group-data-[focus=true]:border-[#E48700]',
-                        'group-data-[hover=true]:border-[#E48700]',
+                        'group-data-[focus=true]:border-primary-orange',
+                        'group-data-[hover=true]:border-primary-orange',
                       ],
                     }}
                     endContent={
@@ -222,7 +222,7 @@ const AddUserForm = ({ operators }: { operators: string[] }) => {
                 disabled={!props.isValid}
                 isLoading={props.isSubmitting}
                 isIconOnly
-                className='bg-[#ECBC76]'
+                className='bg-secondary-orange'
               >
                 <AiOutlineUserAdd size={90} className='flex p-2' />
               </Button>

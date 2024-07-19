@@ -99,18 +99,18 @@ const SignIn = () => {
                       label: [
                         'text-sm',
                         'text-stone-300',
-                        'group-data-[filled-within=true]:text-[#E48700]',
+                        'group-data-[filled-within=true]:text-primary-orange',
                       ],
                       input: ['text-black', 'text-sm'],
                       inputWrapper: [
-                        'group-data-[focus=true]:border-[#E48700]',
-                        'group-data-[hover=true]:border-[#E48700]',
+                        'group-data-[focus=true]:border-primary-orange',
+                        'group-data-[hover=true]:border-primary-orange',
                       ],
                     }}
                     endContent={
                       <HiMail
                         size={45}
-                        className='flex items-center p-2 text-[#E48700]'
+                        className='flex items-center p-2 text-primary-orange'
                       />
                     }
                     {...field}
@@ -130,12 +130,12 @@ const SignIn = () => {
                       label: [
                         'text-sm',
                         'text-stone-300',
-                        'group-data-[filled-within=true]:text-[#E48700]',
+                        'group-data-[filled-within=true]:text-primary-orange',
                       ],
                       input: ['text-black', 'text-sm'],
                       inputWrapper: [
-                        'group-data-[focus=true]:border-[#E48700]',
-                        'group-data-[hover=true]:border-[#E48700]',
+                        'group-data-[focus=true]:border-primary-orange',
+                        'group-data-[hover=true]:border-primary-orange',
                       ],
                     }}
                     endContent={
@@ -147,12 +147,12 @@ const SignIn = () => {
                         {isVisiblePassword ? (
                           <AiFillEyeInvisible
                             size={45}
-                            className='flex p-2 text-[#E48700]'
+                            className='flex p-2 text-primary-orange'
                           />
                         ) : (
                           <AiFillEye
                             size={45}
-                            className='flex p-2 text-[#E48700]'
+                            className='flex p-2 text-primary-orange'
                           />
                         )}
                       </button>
@@ -165,7 +165,7 @@ const SignIn = () => {
                 type='submit'
                 disabled={!props.isValid}
                 isLoading={props.isSubmitting}
-                className='w-full bg-[#E48700] py-6 rounded-xl text-center text-white text-xl font-semibold'
+                className='w-full bg-primary-orange py-6 rounded-xl text-center text-white text-xl font-semibold'
               >
                 Войти
                 <FiLogIn className='text-xl' />

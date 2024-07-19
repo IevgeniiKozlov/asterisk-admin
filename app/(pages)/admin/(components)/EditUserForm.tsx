@@ -166,12 +166,12 @@ const EditUserForm = ({ user }: IEditUserFormProps) => {
                               label: [
                                 'text-sm',
                                 'text-stone-300',
-                                'group-data-[filled-within=true]:text-[#E48700]',
+                                'group-data-[filled-within=true]:text-primary-orange',
                               ],
                               input: ['text-sm', 'text-black'],
                               inputWrapper: [
-                                'group-data-[focus=true]:border-[#E48700]',
-                                'group-data-[hover=true]:border-[#E48700]',
+                                'group-data-[focus=true]:border-primary-orange',
+                                'group-data-[hover=true]:border-primary-orange',
                               ],
                             }}
                             {...field}
@@ -193,12 +193,12 @@ const EditUserForm = ({ user }: IEditUserFormProps) => {
                               label: [
                                 'text-sm',
                                 'text-stone-300',
-                                'group-data-[filled-within=true]:text-[#E48700]',
+                                'group-data-[filled-within=true]:text-primary-orange',
                               ],
                               input: ['text-sm', 'text-black'],
                               inputWrapper: [
-                                'group-data-[focus=true]:border-[#E48700]',
-                                'group-data-[hover=true]:border-[#E48700]',
+                                'group-data-[focus=true]:border-primary-orange',
+                                'group-data-[hover=true]:border-primary-orange',
                               ],
                             }}
                             {...field}
@@ -245,7 +245,7 @@ const EditUserForm = ({ user }: IEditUserFormProps) => {
                             ) : (
                               <MdOutlineSyncLock
                                 size={25}
-                                className='text-[#ECBC76]'
+                                className='text-secondary-orange'
                               />
                             )
                           }
@@ -267,8 +267,8 @@ const EditUserForm = ({ user }: IEditUserFormProps) => {
                                   label: ['text-sm', 'text-stone-300'],
                                   input: ['text-sm', 'text-stone-300'],
                                   inputWrapper: [
-                                    'group-data-[focus=true]:border-[#E48700]',
-                                    'group-data-[hover=true]:border-[#E48700]',
+                                    'group-data-[focus=true]:border-primary-orange',
+                                    'group-data-[hover=true]:border-primary-orange',
                                   ],
                                 }}
                                 endContent={

@@ -37,15 +37,17 @@ const Header = ({ signOutUrl, userName }: IHeaderProps) => {
             alt='asterisk info'
           />
           {pathname === '/admin' && (
-            <span className='text-2xl leading-6 text-[#E48700] font-bold'>
+            <span className='text-2xl leading-6 text-primary-orange font-bold'>
               Admin
             </span>
           )}
         </div>
-        <div className='flex gap-2 items-center'>
-          <span className='text-2xl leading-6 text-gray-600'>{userName}</span>
+        <div className='flex gap-8 items-center'>
+          {pathname !== '/admin' && (
+            <span className='text-xl leading-6 text-gray-600'>{userName}</span>
+          )}
           <Button
-            className='w-[140px] bg-[#E48700] py-2 rounded-xl text-center text-white text-lg font-semibold'
+            className='w-[140px] bg-primary-orange py-2 rounded-xl text-center text-white text-lg font-semibold'
             onClick={handleLogOut}
             variant='flat'
           >

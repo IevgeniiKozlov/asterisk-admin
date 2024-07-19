@@ -131,12 +131,12 @@ const ResetPassword = ({ searchParams }: IResetPasswordProps) => {
                         label: [
                           'text-sm',
                           'text-stone-300',
-                          'group-data-[filled-within=true]:text-[#E48700]',
+                          'group-data-[filled-within=true]:text-primary-orange',
                         ],
                         input: ['text-sm', 'text-black'],
                         inputWrapper: [
-                          'group-data-[focus=true]:border-[#E48700]',
-                          'group-data-[hover=true]:border-[#E48700]',
+                          'group-data-[focus=true]:border-primary-orange',
+                          'group-data-[hover=true]:border-primary-orange',
                         ],
                       }}
                       variant='bordered'
@@ -178,12 +178,12 @@ const ResetPassword = ({ searchParams }: IResetPasswordProps) => {
                         label: [
                           'text-sm',
                           'text-stone-300',
-                          'group-data-[filled-within=true]:text-[#E48700]',
+                          'group-data-[filled-within=true]:text-primary-orange',
                         ],
                         input: ['text-sm', 'text-black'],
                         inputWrapper: [
-                          'group-data-[focus=true]:border-[#E48700]',
-                          'group-data-[hover=true]:border-[#E48700]',
+                          'group-data-[focus=true]:border-primary-orange',
+                          'group-data-[hover=true]:border-primary-orange',
                         ],
                       }}
                       endContent={
@@ -213,7 +213,7 @@ const ResetPassword = ({ searchParams }: IResetPasswordProps) => {
                   type='submit'
                   disabled={!props.isValid}
                   isLoading={props.isSubmitting}
-                  className='w-full bg-[#E48700] py-6 rounded-xl text-center text-white text-lg font-semibold'
+                  className='w-full bg-primary-orange py-6 rounded-xl text-center text-white text-lg font-semibold'
                 >
                   Отправить
                 </Button>
