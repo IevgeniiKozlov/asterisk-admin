@@ -31,6 +31,7 @@ import {
 } from '../(helpers)/formatDate'
 import { timeCall } from '../(helpers)/formatTimeCall'
 import { Cdr, columns, statusOptions } from '../(lib)/data'
+import Loading from '../loading'
 
 const statusColorMap: Record<string, ChipProps['color']> = {
   answered: 'success',
@@ -44,6 +45,7 @@ const MainTable = () => {
   const [page, setPage] = useState(1)
   const [rowsPerPage, setRowsPerPage] = useState(50)
   const [statusFilter, setStatusFilter] = useState<any>('all')
+  const [loading, setLoading] = useState(true)
   const [sortDescriptor, setSortDescriptor] = useState<SortDescriptor>({
     column: 'calldate',
     direction: 'ascending',
@@ -269,9 +271,13 @@ const MainTable = () => {
     ) : null
   }, [page, pages])
 
+  if (loading) {
+    return <Loading />
+  }
+
   return (
-    <section className='h-screen w-full'>
-      <div className='container h-[calc(100vh-80px)] mx-auto flex flex-col items-start justify-start md:justify-start gap-10'>
+    <section className='h-[calc(100vh-80px)] w-full'>
+      <div className='container h-full mx-auto flex flex-col items-start justify-start md:justify-start gap-10'>
         <Table
           aria-label='table with custom cells, pagination and sorting'
           isHeaderSticky

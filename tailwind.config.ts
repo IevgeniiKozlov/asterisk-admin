@@ -32,6 +32,13 @@ const config: Config = {
       // => @media (min-width: 1536px) { ... }
     },
     extend: {
+      fontSize: {
+        '6xl': '4rem',
+      },
+      colors: {
+        'primary-orange': '#E48700',
+        'secondary-orange': '#ECBC76',
+      },
       backgroundImage: {
         signin: "url('../public/background-signin.png')",
         signin2: "url('../public/bgsignin.png')",
