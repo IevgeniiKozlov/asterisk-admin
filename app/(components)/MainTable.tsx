@@ -31,7 +31,7 @@ import {
 } from '../(helpers)/formatDate'
 import { timeCall } from '../(helpers)/formatTimeCall'
 import { Cdr, columns, statusOptions } from '../(lib)/data'
-import Loading from '../loading'
+import { IOutputUser } from '../(server)/schemas/user.schema'
 
 const statusColorMap: Record<string, ChipProps['color']> = {
   answered: 'success',
@@ -40,12 +40,15 @@ const statusColorMap: Record<string, ChipProps['color']> = {
   failed: 'secondary',
 }
 
-const MainTable = () => {
+interface IMainTableProps {
+  user: IOutputUser
+}
+
+const MainTable = ({ user }: IMainTableProps) => {
   const [filterValue, setFilterValue] = useState('')
   const [page, setPage] = useState(1)
   const [rowsPerPage, setRowsPerPage] = useState(50)
   const [statusFilter, setStatusFilter] = useState<any>('all')
-  const [loading, setLoading] = useState(true)
   const [sortDescriptor, setSortDescriptor] = useState<SortDescriptor>({
     column: 'calldate',
     direction: 'ascending',
@@ -67,9 +70,10 @@ const MainTable = () => {
     ),
     end: parseAbsoluteToLocal(formatDateForDatePicker(new Date())),
   })
-
+  console.log(dispositions, 'dis')
   const { data: dataCdrs, isFetching } = trpc.getListCdrByPagination.useQuery({
     where: {
+      src: { in: user.operators!.split(' ') },
       disposition: {
         in: [...dispositions],
       },
@@ -270,10 +274,6 @@ const MainTable = () => {
       </div>
     ) : null
   }, [page, pages])
-
-  if (loading) {
-    return <Loading />
-  }
 
   return (
     <section className='h-[calc(100vh-80px)] w-full'>

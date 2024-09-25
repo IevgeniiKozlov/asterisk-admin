@@ -4,7 +4,7 @@ import { hash } from 'bcryptjs'
 import { NextResponse } from 'next/server'
 import { v4 as uuidv4 } from 'uuid'
 
-export async function POST(request: any) {
+export async function POST(request: Request) {
   try {
     const dataResponse = await request.json()
     const { token, password, email, subject, payload, template } = dataResponse

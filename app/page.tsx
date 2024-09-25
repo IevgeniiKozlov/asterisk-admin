@@ -12,6 +12,8 @@ export default async function Home() {
   const helpers = createSSRHelper(session)
   await helpers.getListCdr.fetch()
 
+  const user = await helpers.getByIdUser.fetch({ id: Number(session!.user.id) })
+
   return (
     <Hydrate state={dehydrate(helpers.queryClient)}>
       <main className='relative flex-auto'>
@@ -19,7 +21,7 @@ export default async function Home() {
           signOutUrl='/authentication/signin'
           userName={session!.user.name}
         />
-        <MainTable />
+        <MainTable user={user} />
       </main>
     </Hydrate>
   )
