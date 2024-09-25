@@ -80,7 +80,7 @@ const SignUp = () => {
 
   return (
     <div className='flex flex-col gap-8 bg-white shadow-md px-4 sm:px-6 md:px-8 lg:px-10 py-8 rounded-md w-full max-w-md'>
-      <h3 className='mb-2 text-center text-2xl font-semibold'>
+      <h3 className='mb-4 text-zinc-500 text-center text-xl font-semibold'>
         Регистрация суперпользователя
       </h3>
       <Formik
@@ -124,16 +124,21 @@ const SignUp = () => {
                   errorMessage={meta.touched && meta.error && meta.error}
                   classNames={{
                     label: [
-                      'font-base',
-                      'text-md',
-                      'text-white-dis',
-                      'group-data-[filled-within=true]:text-mid-blue',
+                      'text-sm',
+                      'text-stone-300',
+                      'group-data-[filled-within=true]:text-primary-orange',
                     ],
-                    input: ['font-base', 'text-md', 'text-white-dis'],
-                    inputWrapper: ['group-data-[focus=true]:border-mid-green'],
+                    input: ['font-base', 'text-md'],
+                    inputWrapper: [
+                      'group-data-[focus=true]:border-primary-orange',
+                      'group-data-[hover=true]:border-primary-orange',
+                    ],
                   }}
                   endContent={
-                    <FaUserAlt size={45} className='flex p-2 text-mid-green' />
+                    <FaUserAlt
+                      size={45}
+                      className='flex items-center p-2 text-primary-orange'
+                    />
                   }
                   {...field}
                 />
@@ -150,18 +155,20 @@ const SignUp = () => {
                   errorMessage={meta.touched && meta.error && meta.error}
                   classNames={{
                     label: [
-                      'font-base',
-                      'text-md',
-                      'text-white-dis',
-                      'group-data-[filled-within=true]:text-mid-blue',
+                      'text-sm',
+                      'text-stone-300',
+                      'group-data-[filled-within=true]:text-primary-orange',
                     ],
-                    input: ['font-base', 'text-md', 'text-white-dis'],
-                    inputWrapper: ['group-data-[focus=true]:border-mid-green'],
+                    input: ['font-base', 'text-md'],
+                    inputWrapper: [
+                      'group-data-[focus=true]:border-primary-orange',
+                      'group-data-[hover=true]:border-primary-orange',
+                    ],
                   }}
                   endContent={
                     <HiMail
                       size={45}
-                      className='flex items-center p-2 text-mid-green'
+                      className='flex items-center p-2 text-primary-orange'
                     />
                   }
                   {...field}
@@ -176,13 +183,15 @@ const SignUp = () => {
                   errorMessage={meta.touched && meta.error && meta.error}
                   classNames={{
                     label: [
-                      'font-base',
-                      'text-md',
-                      'text-white-dis',
-                      'group-data-[filled-within=true]:text-mid-blue',
+                      'text-sm',
+                      'text-stone-300',
+                      'group-data-[filled-within=true]:text-primary-orange',
                     ],
-                    input: ['font-base', 'text-md', 'text-white-dis'],
-                    inputWrapper: ['group-data-[focus=true]:border-mid-green'],
+                    input: ['font-base', 'text-md'],
+                    inputWrapper: [
+                      'group-data-[focus=true]:border-primary-orange',
+                      'group-data-[hover=true]:border-primary-orange',
+                    ],
                   }}
                   variant='bordered'
                   label='Введите пароль'
@@ -196,12 +205,12 @@ const SignUp = () => {
                       {isVisiblePassword ? (
                         <AiFillEyeInvisible
                           size={45}
-                          className='flex p-2 text-mid-blue'
+                          className='flex p-2 text-primary-orange'
                         />
                       ) : (
                         <AiFillEye
                           size={45}
-                          className='flex p-2 text-mid-green'
+                          className='flex p-2 text-primary-orange'
                         />
                       )}
                     </button>
@@ -221,13 +230,15 @@ const SignUp = () => {
                   errorMessage={meta.touched && meta.error && meta.error}
                   classNames={{
                     label: [
-                      'font-base',
-                      'text-md',
-                      'text-white-dis',
-                      'group-data-[filled-within=true]:text-mid-blue',
+                      'text-sm',
+                      'text-stone-300',
+                      'group-data-[filled-within=true]:text-primary-orange',
                     ],
-                    input: ['font-base', 'text-md', 'text-white-dis'],
-                    inputWrapper: ['group-data-[focus=true]:border-mid-green'],
+                    input: ['font-base', 'text-md'],
+                    inputWrapper: [
+                      'group-data-[focus=true]:border-primary-orange',
+                      'group-data-[hover=true]:border-primary-orange',
+                    ],
                   }}
                   endContent={
                     <button
@@ -238,12 +249,12 @@ const SignUp = () => {
                       {isVisiblePasswordConfirm ? (
                         <AiFillEyeInvisible
                           size={45}
-                          className='flex p-2 text-mid-blue'
+                          className='flex p-2 text-primary-orange'
                         />
                       ) : (
                         <AiFillEye
                           size={45}
-                          className='flex p-2 text-mid-green'
+                          className='flex p-2 text-primary-orange'
                         />
                       )}
                     </button>
@@ -256,7 +267,7 @@ const SignUp = () => {
               type='submit'
               disabled={!props.isValid}
               isLoading={props.isSubmitting}
-              className='w-full py-6 rounded-xl text-center text-xl font-bold'
+              className='w-full bg-primary-orange py-6 rounded-xl text-center text-white text-lg font-semibold'
             >
               Зарегистрировать
             </Button>

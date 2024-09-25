@@ -64,7 +64,7 @@ export const findByIdUser = async (id: number) => {
 
   if (!user) {
     throw new TRPCError({
-      message: `User with ID "${id}" was not found`,
+      message: `Пользователь с ID "${id}" не найден`,
       code: 'NOT_FOUND',
     })
   }
@@ -106,7 +106,7 @@ export const updateUser = async (data: IUpdateUser): Promise<IOutputUser> => {
     },
   })
 
-  if (data.id !== user?.id) {
+  if (data.login === user?.login && data.id !== user?.id) {
     throw new TRPCError({
       message: `Пользователь с логином ${data.login} уже существует`,
       code: 'FORBIDDEN',
@@ -130,7 +130,7 @@ export const updateUser = async (data: IUpdateUser): Promise<IOutputUser> => {
 export const removeUser = async (id: number) => {
   const user = await prisma.user.delete({ where: { id } }).catch(() => {
     throw new TRPCError({
-      message: `User with ID ${id} was not found`,
+      message: `Пользователь с ID ${id} не найден`,
       code: 'NOT_FOUND',
     })
   })

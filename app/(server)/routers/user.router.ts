@@ -8,11 +8,18 @@ import {
 import {
   createUser,
   findAllUsers,
+  findByIdUser,
   removeUser,
   updateUser,
 } from '../services/user.service'
 
 export const userRouter = router({
+  getByIdUser: protectedProcedure
+    .input(z.object({ id: z.number() }))
+    .output(outputUserSchema)
+    .query(async ({ input }) => {
+      return await findByIdUser(input.id)
+    }),
   getListUsers: protectedProcedure
     .input(z.void())
     .output(z.array(outputUserSchema))
