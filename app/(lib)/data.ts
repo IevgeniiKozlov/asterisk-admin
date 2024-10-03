@@ -30,13 +30,13 @@ export type Cdr = {
 
 const columns = [
   { name: 'Дата и время', uid: 'calldate', sortable: true },
-  { name: 'Кто звонил', uid: 'src', sortable: true }, // src in database
+  { name: 'Кто звонил', uid: 'src', sortable: true },
   { name: 'Статус', uid: 'disposition', sortable: true },
   { name: 'Куда звонили', uid: 'dst', sortable: true },
   { name: 'Ожидание ответа', uid: 'duration' },
   { name: 'Обработка звонка', uid: 'billsec' },
-  { name: 'Тариф', uid: 'tarif', sortable: true }, //не нашел в таблице, пока свое наименование(вычисляется динамически)
-  { name: 'Запись звонка', uid: 'uniqeid' },
+  { name: 'Тариф', uid: 'sequence', sortable: true }, //в таблице забираем любое не используемое с type number
+  { name: 'Запись звонка', uid: 'filename' },
 ]
 
 const statusOptions = [

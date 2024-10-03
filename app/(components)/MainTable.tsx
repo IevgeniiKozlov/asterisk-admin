@@ -24,6 +24,7 @@ import {
   TableRow,
 } from '@nextui-org/react'
 import { useCallback, useMemo, useState } from 'react'
+import { calcCdrTarif } from '../(helpers)/calculate'
 import {
   formatDate,
   formatDateForDatePicker,
@@ -32,6 +33,7 @@ import {
 import { timeCall } from '../(helpers)/formatTimeCall'
 import { Cdr, columns, statusOptions } from '../(lib)/data'
 import { IOutputUser } from '../(server)/schemas/user.schema'
+import AudioPlayer from './AudioPlayer'
 
 const statusColorMap: Record<string, ChipProps['color']> = {
   answered: 'success',
@@ -70,7 +72,7 @@ const MainTable = ({ user }: IMainTableProps) => {
     ),
     end: parseAbsoluteToLocal(formatDateForDatePicker(new Date())),
   })
-  console.log(dispositions, 'dis')
+
   const { data: dataCdrs, isFetching } = trpc.getListCdrByPagination.useQuery({
     where: {
       src: { in: user.operators!.split(' ') },
@@ -161,11 +163,17 @@ const MainTable = ({ user }: IMainTableProps) => {
             </p>
           </div>
         )
-      case 'actions':
+      case 'sequence':
         return (
-          <div className='relative flex items-center gap-2'>
-            <p>Icons</p>
+          <div className='flex flex-col'>
+            <p className='text-bold text-sm capitalize'>
+              {calcCdrTarif({ billsec: call.billsec, freeInterval: call.amaflags })}
+            </p>
           </div>
+        )
+      case 'filename':
+        return (
+          <AudioPlayer src='/audio/sample.wav'/>
         )
       default:
         return cellValue
@@ -281,7 +289,8 @@ const MainTable = ({ user }: IMainTableProps) => {
         <Table
           aria-label='table with custom cells, pagination and sorting'
           isHeaderSticky
-          isStriped
+          color='default'
+          selectionMode="single" 
           bottomContent={bottomContent}
           bottomContentPlacement='outside'
           classNames={{
@@ -304,7 +313,7 @@ const MainTable = ({ user }: IMainTableProps) => {
             )}
           </TableHeader>
           <TableBody
-            emptyContent={'No cdrs found'}
+            emptyContent={'Звонки не найдены'}
             items={sortedItems}
             isLoading={isFetching}
             loadingContent={<Spinner color='primary' />}
