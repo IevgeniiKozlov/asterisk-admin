@@ -1,5 +1,6 @@
 generator client {
-  provider = "prisma-client-js"
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "debian-openssl-1.1.x"]
 }
 
 datasource db {
@@ -36,7 +37,6 @@ model cdr {
   sequence    Int      @default(0)
   filename    String?  @default("none") @db.VarChar(255)
 
-  @@index([accountcode], map: "accountcode")
   @@index([calldate], map: "calldate")
   @@index([clid], map: "clid")
   @@index([dcontext], map: "dcontext")
@@ -44,4 +44,16 @@ model cdr {
   @@index([dst], map: "dst")
   @@index([src], map: "src")
   @@index([uniqueid], map: "uniqueid")
+  @@index([accountcode], map: "accountcode")
+}
+
+model user {
+  id                        Int       @id @default(autoincrement())
+  name                      String
+  login                     String    @unique
+  password                  String
+  role                      String    @default("user")
+  operators                 String?
+  emailResetPassword        String?   @unique
+  passwordResetTokenExpires DateTime?
 }

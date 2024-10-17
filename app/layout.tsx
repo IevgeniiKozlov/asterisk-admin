@@ -1,5 +1,7 @@
 import { Metadata } from 'next'
 import { Inter } from 'next/font/google'
+import { Toaster } from 'react-hot-toast'
+import { auth } from './(utils)/next-auth/auth'
 import './globals.css'
 import { Providers } from './providers'
 
@@ -18,10 +20,13 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+  const session = await auth()
+
   return (
     <html lang='en' className='light'>
       <body className={inter.className}>
-        <Providers>{children}</Providers>
+        <Toaster />
+        <Providers session={session}>{children}</Providers>
       </body>
     </html>
   )
