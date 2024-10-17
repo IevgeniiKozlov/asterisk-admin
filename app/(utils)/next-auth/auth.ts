@@ -4,6 +4,7 @@ import NextAuth from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
 
 export const authOptions: any = {
+  trustHost: true,
   debug: true,
   secret: process.env.NEXTAUTH_SECRET,
   pages: {
